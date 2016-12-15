@@ -13,13 +13,22 @@
  */
 
 
+/*
+ * The frames are assumed to arrive in our internal protocol which is: 
+ * First byte is the universe
+ * Next 3 bytes are the frame id (starts with zero and advances).
+ * This id will allow us to trace lost packages and to syncrhonize different universes.
+ * Next 900 bytes are group of 300 pixels (fixed). 
+ * For each pixel, the first byte is Red, second is Green, third is Blue.
+ */
+
 #include <SPI.h>         // needed for Arduino versions later than 0018
 #include <Ethernet.h>
 #include <EthernetUdp.h>         // UDP library from: bjoern@cs.stanford.edu 12/30/2008
 
 #include <OctoWS2811.h>
 const int ledsPerStrip = 300;
-#define PACKET_SIZE (ledsPerStrip * 3)
+#define PACKET_SIZE (ledsPerStrip * 3 + 1 + 3)
 
 DMAMEM int displayMemory[ledsPerStrip*6];
 int drawingMemory[ledsPerStrip*6];
@@ -57,16 +66,29 @@ void setup() {
 void loop() {
   // if there's data available, read a packet
   int packetSize = Udp.parsePacket();
-  if (packetSize >= PACKET_SIZE) {
+  if (packetSize >= PACKET_SIZE) {    
     char tempBuf[PACKET_SIZE];
     Udp.read((char *)tempBuf, PACKET_SIZE);
-    for(int i=0; i<ledsPerStrip; i++)
+
+    char universe = tempBuf[0];
+    int startPixelId = UniverseToPixelNumber(universe);
+    if(startPixelId != -1)
     {
-      unsigned int color = ((unsigned int)tempBuf[i*3] << 16) | ((unsigned int)tempBuf[i*3 + 1] << 8) | ((unsigned int)tempBuf[i*3 + 2]);
-      leds.setPixel(i, color);    
+      for(int i=startPixelId; i<ledsPerStrip; i++)
+      {
+        int pixelRgbStart = 4 + i*3;
+        unsigned int color = ((unsigned int)tempBuf[pixelRgbStart] << 16) | ((unsigned int)tempBuf[pixelRgbStart + 1] << 8) | ((unsigned int)tempBuf[pixelRgbStart + 2]);
+        leds.setPixel(i, color);    
+      }
+      leds.show();      
     }
-    leds.show();
   }
 }
 
+int UniverseToPixelNumber(char universe)
+{
+  if(universe == 0)
+    return 0;
+  return -1;  
+}
 

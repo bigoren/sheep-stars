@@ -73,10 +73,10 @@ def is_pixel_off(index):
 def get_color(pixel):
 	return [255, 0, 0]
 		
-fname = r"c:\tmp\1.json"
-if os.path.isfile(fname):
+print dir(config_leds)
+if os.path.isfile(config_leds.current_file):
 	effects = {}
-	leds_f = open(fname, "r")
+	leds_f = open(config_leds.current_file, "r")
 	effects = [parse_json_effect(l) for l in leds_f.readlines()]
 	
 	while True:
@@ -87,14 +87,18 @@ if os.path.isfile(fname):
 			effect.apply(cicle_number)
 		for s in star.stars:
 			s.draw(cicle_number)
-		message_on_net = array.array('B', star.stars_buf).tostring()
+		header = array.array('B', [0, 0, 0, 0])
+		pixels_data = array.array('B', star.stars_buf)
+		message_on_net = (header + pixels_data).tostring()
+		print len(message_on_net)
 		cicle_number = cicle_number + 1
 		next_frame_time = start_time + (cicle_number / config_leds.frames_per_second)
 		leds_frame_in_audio = cicle_number * sound_frames_per_cicle
 		while f.tell() < leds_frame_in_audio: 
 			time.sleep(0.001)
 		sock.sendto(message_on_net, (CONTROLER_IP, UDP_PORT))
-		
+
+"""
 else:		
 	leds_f = open(fname, "w")
 	kdf = None #key down frame
@@ -170,7 +174,7 @@ else:
 			time.sleep(0.001)
 		sock.sendto(message_on_net, (CONTROLER_IP, UDP_PORT))
 						
-
+"""
 
 
 
