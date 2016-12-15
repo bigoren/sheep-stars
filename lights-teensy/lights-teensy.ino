@@ -30,12 +30,15 @@
 const int ledsPerStrip = 300;
 #define PACKET_SIZE (ledsPerStrip * 3 + 1 + 3)
 
+const int totalUniverses = 1;
+const int minUniverse = 0;
+bool universesReceived[totalUniverses];
+
 DMAMEM int displayMemory[ledsPerStrip*6];
 int drawingMemory[ledsPerStrip*6];
 
 const int config = WS2811_GRB | WS2811_800kHz;
 OctoWS2811 leds(ledsPerStrip, displayMemory, drawingMemory, config);
-
 
 // Enter a MAC address and IP address for your controller below.
 // The IP address will be dependent on your local network:
@@ -78,11 +81,19 @@ void loop() {
       {
         int pixelRgbStart = 4 + i*3;
         unsigned int color = ((unsigned int)tempBuf[pixelRgbStart] << 16) | ((unsigned int)tempBuf[pixelRgbStart + 1] << 8) | ((unsigned int)tempBuf[pixelRgbStart + 2]);
-        leds.setPixel(i, color);    
+        leds.setPixel(i, color);
       }
-      leds.show();      
+
+      SendToStrip();
     }
   }
+}
+
+void SendToStrip()
+{
+  for(int i=0; i<totalUniverses; i++)
+    universesReceived[i] = false;
+  leds.show();
 }
 
 int UniverseToPixelNumber(char universe)

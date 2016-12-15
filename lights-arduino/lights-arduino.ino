@@ -19,11 +19,10 @@
 
 #include <FastLED.h>
 #define NUM_LEDS 300
-#define PACKET_SIZE (NUM_LEDS * 3)
+#define PACKET_SIZE (NUM_LEDS * 3 + 4)
 #define DATA_PIN 6
 
 CRGB leds[NUM_LEDS];
-
 
 // Enter a MAC address and IP address for your controller below.
 // The IP address will be dependent on your local network:
@@ -33,10 +32,6 @@ byte mac[] = {
 IPAddress ip( 192,168,1,201 );
 
 unsigned int localPort = 2000;      // local port to listen on
-
-// buffers for receiving and sending data
-char packetBuffer[UDP_TX_PACKET_MAX_SIZE];  //buffer to hold incoming packet,
-char  ReplyBuffer[] = "acknowledged";       // a string to send back
 
 // An EthernetUDP instance to let us send and receive packets over UDP
 EthernetUDP Udp;
@@ -75,9 +70,17 @@ void loop() {
     Serial.print(", port ");
     Serial.println(Udp.remotePort());*/
 
-    // read the packet into packetBufffer
-    Udp.read((char *)leds, PACKET_SIZE);
-    FastLED.show();
+    char universe;
+    Udp.read(&universe, 1);
+    if(universe == 0)
+    {
+      char frameNum[3];
+      Udp.read((char *)frameNum, 3);
+      // Nothing to do with frameNum
+      
+      Udp.read((char *)leds, PACKET_SIZE);
+      FastLED.show();      
+    }
     /*Serial.println("Contents:");
     Serial.println(packetBuffer);
 
