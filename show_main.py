@@ -21,7 +21,7 @@ start_time = time.time()
 cicle_number = 0
 
 #network
-CONTROLER_IP = "192.168.1.201"
+CONTROLER_IP = "192.168.1.210"
 UDP_PORT = 2000
 sock = socket.socket(socket.AF_INET, # Internet
                         socket.SOCK_DGRAM) # UDP
@@ -87,15 +87,27 @@ if os.path.isfile(config_leds.current_file):
 			effect.apply(cicle_number)
 		for s in star.stars:
 			s.draw(cicle_number)
+			
 		header = array.array('B', [0, (cicle_number / (256 * 256) ) % 256, (cicle_number / 256) % 256, cicle_number % 256])
 		pixels_data = array.array('B', star.stars_buf)
-		message_on_net = (header + pixels_data).tostring()
+		message_0 = (header + pixels_data).tostring()
+		
+		header = array.array('B', [1, (cicle_number / (256 * 256) ) % 256, (cicle_number / 256) % 256, cicle_number % 256])
+		pixels_data = array.array('B', star.stars_buf)
+		message_1 = (header + pixels_data).tostring()
+
+		header = array.array('B', [2, (cicle_number / (256 * 256) ) % 256, (cicle_number / 256) % 256, cicle_number % 256])
+		pixels_data = array.array('B', star.stars_buf)
+		message_2 = (header + pixels_data).tostring()
+		
 		cicle_number = cicle_number + 1
 		next_frame_time = start_time + (cicle_number / config_leds.frames_per_second)
 		leds_frame_in_audio = cicle_number * sound_frames_per_cicle
 		while f.tell() < leds_frame_in_audio: 
 			time.sleep(0.001)
-		sock.sendto(message_on_net, (CONTROLER_IP, UDP_PORT))
+		sock.sendto(message_0, (CONTROLER_IP, UDP_PORT))
+		sock.sendto(message_1, (CONTROLER_IP, UDP_PORT))
+		sock.sendto(message_2, (CONTROLER_IP, UDP_PORT))
 
 """
 else:		

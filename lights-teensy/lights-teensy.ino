@@ -27,10 +27,11 @@
 #include <EthernetUdp.h>         // UDP library from: bjoern@cs.stanford.edu 12/30/2008
 
 #include <OctoWS2811.h>
-const int ledsPerStrip = 300;
-#define PACKET_SIZE (ledsPerStrip * 3 + 1 + 3)
+const int ledsPerStrip = 600;
+const int pixelsInPacket = 300;
+#define PACKET_SIZE (pixelsInPacket * 3 + 1 + 3)
 
-const int totalUniverses = 1;
+const int totalUniverses = 3;
 const int minUniverse = 0;
 bool universesReceived[totalUniverses];
 
@@ -56,7 +57,7 @@ void setup() {
 
   // start octows2811
   leds.begin();
-  leds.show();
+  SendToStrip();
 
   // start the Ethernet and UDP:
   Ethernet.begin(mac, ip);
@@ -77,14 +78,25 @@ void loop() {
     int startPixelId = UniverseToPixelNumber(universe);
     if(startPixelId != -1)
     {
-      for(int i=startPixelId; i<ledsPerStrip; i++)
+      int currPixelIndex = startPixelId;
+      for(int i=0; i<pixelsInPacket; i++, currPixelIndex++)
       {
         int pixelRgbStart = 4 + i*3;
         unsigned int color = ((unsigned int)tempBuf[pixelRgbStart] << 16) | ((unsigned int)tempBuf[pixelRgbStart + 1] << 8) | ((unsigned int)tempBuf[pixelRgbStart + 2]);
-        leds.setPixel(i, color);
+        leds.setPixel(currPixelIndex, color);
       }
 
-      SendToStrip();
+      bool shouldUpdate = true;
+      for(int i=0; i<totalUniverses; i++)
+      {
+        if(universesReceived[i] == false)
+          shouldUpdate = false;
+      }
+
+      if(shouldUpdate)
+      {
+        SendToStrip();
+      }
     }
   }
 }
@@ -98,8 +110,21 @@ void SendToStrip()
 
 int UniverseToPixelNumber(char universe)
 {
-  if(universe == 0)
-    return 0;
-  return -1;  
+  switch(universe)
+  {
+    case 0: 
+      universesReceived[0] = true;
+      return 0;
+      
+    case 1: 
+      universesReceived[1] = true;
+      return ledsPerStrip;
+
+    case 2: 
+      universesReceived[2] = true;
+      return ledsPerStrip + pixelsInPacket;
+      
+    default: return -1;
+  }
 }
 
