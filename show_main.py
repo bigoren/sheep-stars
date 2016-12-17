@@ -1,5 +1,3 @@
-import socket
-import array
 import time
 import random
 import msvcrt
@@ -10,23 +8,18 @@ import time, wave, pymedia.audio.sound as sound
 import os.path
 import json
 
+import networking
 import star
 import leds_effects
 import single_star_effect
 import effect_stars_swipe
 import effect_stars_group_random
 import config_leds
+import sheep_shine_effect
 
 start_time = time.time()
 cicle_number = 0
 
-#network
-CONTROLER_IP = "192.168.1.210"
-UDP_PORT = 2000
-sock = socket.socket(socket.AF_INET, # Internet
-                        socket.SOCK_DGRAM) # UDP
-
-						
 #sound
 f = wave.open(r'C:\Users\Amir\Downloads\dreams.wav', 'rb')
 sampleRate= f.getframerate()
@@ -73,7 +66,6 @@ def is_pixel_off(index):
 def get_color(pixel):
 	return [255, 0, 0]
 		
-print dir(config_leds)
 if os.path.isfile(config_leds.current_file):
 	effects = {}
 	leds_f = open(config_leds.current_file, "r")
@@ -88,26 +80,12 @@ if os.path.isfile(config_leds.current_file):
 		for s in star.stars:
 			s.draw(cicle_number)
 			
-		header = array.array('B', [0, (cicle_number / (256 * 256) ) % 256, (cicle_number / 256) % 256, cicle_number % 256])
-		pixels_data = array.array('B', star.stars_buf)
-		message_0 = (header + pixels_data).tostring()
-		
-		header = array.array('B', [1, (cicle_number / (256 * 256) ) % 256, (cicle_number / 256) % 256, cicle_number % 256])
-		pixels_data = array.array('B', star.stars_buf)
-		message_1 = (header + pixels_data).tostring()
-
-		header = array.array('B', [2, (cicle_number / (256 * 256) ) % 256, (cicle_number / 256) % 256, cicle_number % 256])
-		pixels_data = array.array('B', star.stars_buf)
-		message_2 = (header + pixels_data).tostring()
-		
 		cicle_number = cicle_number + 1
 		next_frame_time = start_time + (cicle_number / config_leds.frames_per_second)
 		leds_frame_in_audio = cicle_number * sound_frames_per_cicle
 		while f.tell() < leds_frame_in_audio: 
 			time.sleep(0.001)
-		sock.sendto(message_0, (CONTROLER_IP, UDP_PORT))
-		sock.sendto(message_1, (CONTROLER_IP, UDP_PORT))
-		sock.sendto(message_2, (CONTROLER_IP, UDP_PORT))
+		networking.send(cicle_number)
 
 """
 else:		

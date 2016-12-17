@@ -27,7 +27,7 @@
 #include <EthernetUdp.h>         // UDP library from: bjoern@cs.stanford.edu 12/30/2008
 
 #include <OctoWS2811.h>
-const int ledsPerStrip = 600;
+const int ledsPerStrip = 601;
 const int pixelsInPacket = 300;
 #define PACKET_SIZE (pixelsInPacket * 3 + 1 + 3)
 
@@ -82,8 +82,7 @@ void loop() {
       for(int i=0; i<pixelsInPacket; i++, currPixelIndex++)
       {
         int pixelRgbStart = 4 + i*3;
-        unsigned int color = ((unsigned int)tempBuf[pixelRgbStart] << 16) | ((unsigned int)tempBuf[pixelRgbStart + 1] << 8) | ((unsigned int)tempBuf[pixelRgbStart + 2]);
-        leds.setPixel(currPixelIndex, color);
+        leds.setPixel(currPixelIndex, leds.color((uint8_t)tempBuf[pixelRgbStart], (uint8_t)tempBuf[pixelRgbStart+1], (uint8_t)tempBuf[pixelRgbStart+2]));
       }
 
       bool shouldUpdate = true;
