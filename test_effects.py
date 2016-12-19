@@ -1,16 +1,18 @@
 
 import time, wave, pymedia.audio.sound as sound
+import random
 
 import sheep
 import networking
 import config_leds
 
 import sheep_shine_effect
+import legs_color_move
+
+e = legs_color_move.LegsColorMove()
+e.set_parameters(1, 0, 1000, 30)
 
 start_time = time.time()
-
-e = sheep_shine_effect.SheepShineEffect()
-e.set_parameters(1, 0, 100, 100, 100)
 
 #sound
 f = wave.open(r'C:\Users\Amir\Downloads\dreams.wav', 'rb')
@@ -26,7 +28,7 @@ for cicle_number in range(0, 1000):
 	snd.play( s )
 	
 	e.apply(cicle_number)
-		
+	
 	next_frame_time = start_time + (cicle_number / config_leds.frames_per_second)
 	leds_frame_in_audio = cicle_number * sound_frames_per_cicle
 	while f.tell() < leds_frame_in_audio: 

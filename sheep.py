@@ -83,13 +83,13 @@ class Sheep1(Sheep):
 		self.set_continues_buffer(colors, 462, self.ll_leg_len)				
 
 	def set_lr_leg(self, colors):
-		self.set_continues_buffer(colors, 423, self.lr_leg_len)				
+		self.set_continues_buffer(colors[::-1], 423, self.lr_leg_len)				
 		
 	def set_rl_leg(self, colors):
 		self.set_continues_buffer(colors, 335, self.rl_leg_len)						
 
 	def set_rr_leg(self, colors):
-		self.set_continues_buffer(colors, 300, self.rr_leg_len)						
+		self.set_continues_buffer(colors[::-1], 300, self.rr_leg_len)						
 		
 	def set_body(self, colors):
 		if len(colors) != self.body_len:
