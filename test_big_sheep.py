@@ -1,12 +1,9 @@
-import networking
-import time
+from Song.DreamOn import DreamOnSong
+import pygame
 
-from UIElements.BigSheep import s1
-from Effects.ConfettiEffect import ConfettiEffect
+pygame.init()
+pygame.display.set_mode((200,100))
+pygame.mixer.init()
 
-e = ConfettiEffect(s1.get_all_indexes(), 1000, 4)
-
-for cycle_number in range(0,1000):
-	e.apply(cycle_number, s1.arr)
-	networking.send(cycle_number)
-	time.sleep(1.0/50.0)
+song1 = DreamOnSong()
+song1.play()

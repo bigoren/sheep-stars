@@ -10,7 +10,7 @@ class ConfettiEffect(Effect):
         
         self.hue = 0
     
-    def apply(self, current_frame, parent_array):
+    def apply(self, current_time, parent_array):
         
         self.hue = (self.hue + 1.0/180.0)
         if self.hue > 1.0:
@@ -26,4 +26,4 @@ class ConfettiEffect(Effect):
         for _ in range(0, self._leds_per_cycle):
             rand_pixel = self.indexes[random.randint(0, len(self.indexes) - 1)]
             rand_index = rand_pixel * 3
-            parent_array[rand_index : rand_index+3] = [int(c*255) for c in colorsys.hsv_to_rgb(self.hue, 0.75, 1.0)]
+            parent_array[rand_index : rand_index+3] = [int(c*255) for c in colorsys.hsv_to_rgb(self.hue + random.random() / 10, 0.75, 1.0)]

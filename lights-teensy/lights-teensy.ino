@@ -70,8 +70,6 @@ void setup() {
 void loop() {
   // if there's data available, read a packet
   int packetSize = Udp.parsePacket();
-  if(packetSize > 0)
-    Serial.println(packetSize);
   
   if (packetSize >= PACKET_SIZE) {    
     char tempBuf[PACKET_SIZE];
@@ -116,11 +114,11 @@ int UniverseToPixelNumber(char universe)
   {
     case 0: 
       universesReceived[0] = true;
-      return ledsPerStrip;
+      return ledsPerStrip * 0 + pixelsInPacket * 0;
       
     case 1: 
       universesReceived[1] = true;
-      return ledsPerStrip + pixelsInPacket;
+      return ledsPerStrip * 0 + pixelsInPacket * 1;
 
     default: return -1;
   }

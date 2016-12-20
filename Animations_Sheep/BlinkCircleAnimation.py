@@ -10,7 +10,7 @@ class BlinkCircleAnimation(SheepAnimation):
         self.effects = []
         self.currentBlinkBodyNum = -1;
     
-    def apply(self, current_frame, parent_array):
+    def apply(self, current_time, parent_array):
         if (current_frame % self.num_of_frames == 0):
             self.currentBlinkBodyNum += 1
             if (self.currentBlinkBodyNum == self.sheep.get_num_of_body_parts()):

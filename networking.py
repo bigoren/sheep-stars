@@ -21,7 +21,7 @@ def send(cycle_number):
 	header = array.array('B', [1, (cycle_number / (256 * 256) ) % 256, (cycle_number / 256) % 256, cycle_number % 256])
 	pixels_data = array.array('B', s1.arr[900:1800])
 	message_s1_2 = (header + pixels_data).tostring()
-	
+
 	sock.sendto(message_s1_1, (CONTROLER_IP, UDP_PORT))
 	sock.sendto(message_s1_2, (CONTROLER_IP, UDP_PORT))
 	
