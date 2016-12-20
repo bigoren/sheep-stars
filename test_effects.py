@@ -15,14 +15,14 @@ e.set_parameters(1, 0, 1000, 30)
 start_time = time.time()
 
 #sound
-f = wave.open(r'C:\Users\Amir\Downloads\dreams.wav', 'rb')
+f = wave.open(r'C:\Temp\dreams.wav', 'rb')
 sampleRate= f.getframerate()
 sound_frames_per_cicle = int(sampleRate / config_leds.frames_per_second)
 channels= f.getnchannels()
 format= sound.AFMT_S16_LE
 snd= sound.Output( int(sampleRate), channels, format )
 
-for cicle_number in range(0, 1000):
+for cicle_number in range(1, 1000):
 
 	s = f.readframes( sound_frames_per_cicle )
 	snd.play( s )
@@ -30,7 +30,8 @@ for cicle_number in range(0, 1000):
 	e.apply(cicle_number)
 	
 	next_frame_time = start_time + (cicle_number / config_leds.frames_per_second)
-	leds_frame_in_audio = cicle_number * sound_frames_per_cicle
+	leds_frame_in_audio = (cicle_number-1) * sound_frames_per_cicle
+	
 	while f.tell() < leds_frame_in_audio: 
 		time.sleep(0.001)
 	networking.send(cicle_number)
