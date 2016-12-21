@@ -1,4 +1,5 @@
 import colorsys
+import random
 
 def adjacent_color((r, g, b)): # Assumption: r, g, b in [0, 255]
     d = 30/360.0
@@ -8,3 +9,7 @@ def adjacent_color((r, g, b)): # Assumption: r, g, b in [0, 255]
     adjacent = [map(lambda x: int(round(x*255)), colorsys.hls_to_rgb(hi, l, s))
                 for hi in h] # H'LS -> new RGB
     return adjacent
+
+def get_random_color():
+    color = [random.randrange(256), random.randrange(256), random.randrange(256)]
+    return color
