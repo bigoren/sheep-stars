@@ -1,6 +1,9 @@
 import colorsys
 import random
 
+def opposite_color((r, g, b)):
+    return [255-r, 255-g, 255-b]
+
 def adjacent_color((r, g, b)): # Assumption: r, g, b in [0, 255]
     d = 30/360.0
     r, g, b = map(lambda x: x/255., [r, g, b]) # Convert to [0, 1]

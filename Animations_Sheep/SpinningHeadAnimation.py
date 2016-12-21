@@ -2,17 +2,19 @@ from Colors import Colors
 from AbstractSheepAnimation import SheepAnimation
 from Effects.AlwaysOnEffect import AlwaysOnEffect
 from Effects.SpinningFadeEffect import SpinningFadeEffect
+from Effects.AlternateColorEffect import AlternateColorEffect
 
 class SpinningHeadAnimation(SheepAnimation):
 
     def __init__(self, sheep, color):
         SheepAnimation.__init__(self, sheep)
         self.color = color
-        self.headColor = Colors.adjacent_color(self.color)[0]
-        self.legsColor = Colors.adjacent_color(self.color)[1]
+        self.headColor = Colors.opposite_color(self.color)
+        self.legsColor1 = color#Colors.adjacent_color(self.color)[0]
+        self.legsColor2 = self.headColor#Colors.adjacent_color(self.color)[1]
         
         bodyEffect = AlwaysOnEffect(self.sheep.get_body_indexes(), self.color)
-        legsEffect = AlwaysOnEffect(self.sheep.get_legs_indexes(), self.legsColor)
+        legsEffect = AlternateColorEffect(self.sheep.get_legs_indexes(), self.legsColor1, self.legsColor2)
         headEffect = SpinningFadeEffect(self.sheep.get_head_indexes(),self.headColor)
         self.effects = [bodyEffect, legsEffect, headEffect]
     
