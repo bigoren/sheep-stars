@@ -4,10 +4,9 @@ from UIElements.AbstractSheep import Sheep
 class SheepAnimation:
     __metaclass__ = ABCMeta
     
-    def __init__(self, sheep, time_on):
+    def __init__(self, sheep):
         self.sheep = sheep
-        self.time_on = time_on
     
     @abstractmethod
-    def apply(self, current_time, parent_array): pass
+    def apply(self, time_percent, parent_array): pass
 

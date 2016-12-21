@@ -4,13 +4,12 @@ import colorsys
 import random
 
 class ConfettiEffect(Effect):
-    def __init__(self, indexes, num_of_frames, leds_per_cycle):
-        Effect.__init__(self, indexes, num_of_frames)
+    def __init__(self, indexes, leds_per_cycle):
+        Effect.__init__(self, indexes)
         self._leds_per_cycle = leds_per_cycle
-        
         self.hue = 0
     
-    def apply(self, current_time, parent_array):
+    def apply(self, time_precent, parent_array):
         
         self.hue = (self.hue + 1.0/180.0)
         if self.hue > 1.0:

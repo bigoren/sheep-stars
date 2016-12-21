@@ -1,20 +1,15 @@
 from AbstractEffect import Effect
 
 class SpinningFadeEffect(Effect):
-    def __init__(self, indexes, num_of_frames, color):
-        Effect.__init__(self, indexes, num_of_frames)
+    def __init__(self, indexes, color):
+        Effect.__init__(self, indexes)
         self.color = color
-        self.switch = int(num_of_frames/float(len(indexes)))
         self.currentOnLed = -1;
     
-    def apply(self, current_frame, parent_array):
-        current_frame = current_frame % self.num_of_frames
+    def apply(self, time_precent, parent_array):
         
-        # change current led index
-        if (current_frame % self.switch == 0):
-            self.currentOnLed = self.currentOnLed + 1
-            if (self.currentOnLed == len(self.indexes)):
-                self.currentOnLed = 0
+        # current led index
+        self.currentOnLed = int(time_precent * len(self.indexes))
         
         for i in range(0,len(self.indexes)):
             
