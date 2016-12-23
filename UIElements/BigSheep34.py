@@ -53,3 +53,15 @@ class BigSheep34(Sheep):
     
     def get_legs_indexes(self):
         return self.legll + self.leglr + self.legrl + self.legrr
+
+    def get_leg12_indexes(self):
+        return self.legll + self.leglr
+    
+    def get_leg12_connection_index(self):
+        return 492;
+
+    def get_leg34_indexes(self):
+        return self.legrl + self.legrr
+    
+    def get_leg34_connection_index(self):
+        return 366

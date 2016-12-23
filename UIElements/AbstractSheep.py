@@ -31,5 +31,17 @@ class Sheep:
     # -- Legs -- ##
 
     @abstractmethod
+    def get_leg12_indexes(self): pass
+
+    @abstractmethod
+    def get_leg34_indexes(self): pass
+    
+    @abstractmethod
+    def get_leg12_connection_index(self): pass
+
+    @abstractmethod
+    def get_leg34_connection_index(self): pass
+
+    @abstractmethod
     def get_legs_indexes(self): pass
 

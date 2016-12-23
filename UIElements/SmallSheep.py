@@ -44,3 +44,15 @@ class SmallSheep(Sheep):
     
     def get_legs_indexes(self):
         return self.leg1 + self.leg2
+
+    def get_leg12_indexes(self):
+        return self.leg1
+
+    def get_leg12_connection_index(self):
+        return 133;
+
+    def get_leg34_indexes(self):
+        return self.leg2
+
+    def get_leg34_connection_index(self):
+        return 200
