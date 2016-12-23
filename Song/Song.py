@@ -24,6 +24,7 @@ class Song(object):
                 clock = pygame.time.Clock()
                 while pygame.mixer.music.get_busy():
                         song_time = pygame.mixer.music.get_pos()
+                        song_time = song_time/1000.0
                         self.apply_animations(song_time)
                         networking.send(cycle_num,
                                         self.smallSheep.get_array(),
