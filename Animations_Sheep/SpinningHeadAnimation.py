@@ -6,8 +6,9 @@ from Effects.AlternateColorEffect import AlternateColorEffect
 
 class SpinningHeadAnimation(SheepAnimation):
 
-    def __init__(self, sheep, color):
+    def __init__(self, sheep, color, num_of_spins):
         SheepAnimation.__init__(self, sheep)
+        self.num_of_spins = num_of_spins
         self.color = color
         self.headColor = Colors.opposite_color(self.color)
         self.legsColor1 = color#Colors.adjacent_color(self.color)[0]
@@ -18,7 +19,7 @@ class SpinningHeadAnimation(SheepAnimation):
         headEffect = SpinningFadeEffect(self.sheep.get_head_indexes(),self.headColor)
         self.effects = [bodyEffect, legsEffect, headEffect]
     
-    def apply(self, time_percent, parent_array):
+    def apply(self, time_percent):
         
         for effect in self.effects:
-            effect.apply(time_percent, parent_array)
+            effect.apply(time_percent, self.sheep.get_array())

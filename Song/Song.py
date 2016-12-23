@@ -1,12 +1,17 @@
 import networking_may as networking
 #import networking_amir as networking
 import pygame
+from UIElements.SmallSheep import SmallSheep
+from UIElements.BigSheep34 import BigSheep34
 
 class Song(object):
     
         def __init__(self):
-                self.data = [0,0,0]*302 #may
-                #self.data = [0,0,0]*600 #amir
+                self.bigSheep12_mock = [100,100,100]*600
+
+                self.smallSheep = SmallSheep()
+                self.bigSheep34 = BigSheep34()
+      
                 self.cycle_num = 0
 
         def play(self):
@@ -20,6 +25,10 @@ class Song(object):
                 while pygame.mixer.music.get_busy():
                         song_time = pygame.mixer.music.get_pos()
                         self.apply_animations(song_time)
-                        networking.send(cycle_num, self.data)
+                        networking.send(cycle_num,
+                                        self.smallSheep.get_array(),
+                                        self.bigSheep12_mock,
+                                        self.bigSheep34.get_array())
                         clock.tick(50)
-                        cycle_num += 1
+
+                cycle_num += 1

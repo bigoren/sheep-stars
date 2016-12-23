@@ -9,6 +9,11 @@ class SmallSheep(Sheep):
                      range(288,300)]
         self.leg1 = range(97,111)+range(117,131)
         self.leg2 = range(163,178)+range(184,198)
+
+        self.arr = [0,0,0] * 302
+
+    def get_array(self):
+        return self.arr
     
     def get_all_indexes(self):
         return self.get_head_indexes() + self.get_body_indexes() + self.get_legs_indexes()

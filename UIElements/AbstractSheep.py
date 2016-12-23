@@ -3,6 +3,9 @@ from abc import ABCMeta, abstractmethod
 
 class Sheep:
     __metaclass__ = ABCMeta
+
+    @abstractmethod
+    def get_array(self): pass
     
     @abstractmethod
     def get_all_indexes(self): pass

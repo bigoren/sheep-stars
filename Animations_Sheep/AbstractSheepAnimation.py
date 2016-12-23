@@ -6,7 +6,7 @@ class SheepAnimation:
     
     def __init__(self, sheep):
         self.sheep = sheep
-    
+
     @abstractmethod
-    def apply(self, time_percent, parent_array): pass
+    def apply(self, time_percent): pass
 
