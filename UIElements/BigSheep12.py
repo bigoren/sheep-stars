@@ -50,6 +50,18 @@ class BigSheep12(Sheep):
 		return self.earl + self.earr
 
     # -- Legs -- #
-    
+
     def get_legs_indexes(self):
         return self.legll + self.leglr + self.legrl + self.legrr
+
+    def get_leg12_indexes(self):
+        return self.legrl + self.legrr
+    
+    def get_leg12_connection_index(self):
+        return 179;
+
+    def get_leg34_indexes(self):
+        return self.legll + self.leglr
+    
+    def get_leg34_connection_index(self):
+        return 300

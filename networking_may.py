@@ -37,8 +37,8 @@ def send(cycle_number,
         message_s4 = (header + pixels_data).tostring()
 
         sock.sendto(message_s0, (CONTROLER_IP_SMALL_SHEEP_0, UDP_PORT))
-        #sock.sendto(message_s1, (CONTROLER_IP_BIG_SHEEP_12, UDP_PORT))
-        #sock.sendto(message_s2, (CONTROLER_IP_BIG_SHEEP_12, UDP_PORT))
+        sock.sendto(message_s1, (CONTROLER_IP_BIG_SHEEP_12, UDP_PORT))
+        sock.sendto(message_s2, (CONTROLER_IP_BIG_SHEEP_12, UDP_PORT))
         sock.sendto(message_s3, (CONTROLER_IP_BIG_SHEEP_34, UDP_PORT))
         sock.sendto(message_s4, (CONTROLER_IP_BIG_SHEEP_34, UDP_PORT))
 
