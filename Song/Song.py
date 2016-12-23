@@ -22,5 +22,4 @@ class Song(object):
                         self.apply_animations(song_time)
                         networking.send(cycle_num, self.data)
                         clock.tick(50)
-
-                cycle_num += 1
+                        cycle_num += 1

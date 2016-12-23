@@ -11,7 +11,7 @@ class SpinningFadeEffect(Effect):
         # current led index
         self.currentOnLed = int(time_precent * len(self.indexes))
         
-        for i in range(0,len(self.indexes)):
+        for i in range(len(self.indexes)):
             
             # calculate distance from current led
             if (i < self.currentOnLed):
