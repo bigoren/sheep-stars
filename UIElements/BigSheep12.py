@@ -14,7 +14,7 @@ class BigSheep12(Sheep):
         self.legrr = range(107,140)
 		
         self.earl = range(0,44)
-        self.earr = range(560,600)
+        self.earr = range(560,600)[::-1]
 		
         self.arr = [0,0,0] * 600
 

@@ -4,6 +4,7 @@ from AbstractSheepAnimation import SheepAnimation
 from Effects.AlwaysOnEffect import AlwaysOnEffect
 from Effects.SpinningFadeEffect import SpinningFadeEffect
 from Effects.AlternateColorEffect import AlternateColorEffect
+from Effects.AdvanceEffect import AdvanceEffect
 
 class SpinningHeadAnimation(SheepAnimation):
 
@@ -18,10 +19,12 @@ class SpinningHeadAnimation(SheepAnimation):
         self.legsColor2 = self.headColor#Colors.adjacent_color(self.color)[1]
         
     def create_effects(self):
-        bodyEffect = AlwaysOnEffect(self.sheep.get_body_indexes(), self.color)
+        bodyEffect = AdvanceEffect(self.sheep.get_body_indexes(), self.current_spin)
         legsEffect = AlternateColorEffect(self.sheep.get_legs_indexes(), self.legsColor1, self.legsColor2)
         headEffect = SpinningFadeEffect(self.sheep.get_head_indexes(),self.headColor)
-        self.effects = [bodyEffect, legsEffect, headEffect]
+        earlEffect = AdvanceEffect(self.sheep.earl, self.current_spin)
+        earrEffect = AdvanceEffect(self.sheep.earr, self.current_spin)
+        self.effects = [bodyEffect, legsEffect, headEffect, earlEffect, earrEffect]
     
     def apply(self, time_percent):
         spin = int(math.floor(time_percent * self.num_of_spins))

@@ -9,6 +9,8 @@ class SmallSheep(Sheep):
                      range(288,300)]
         self.leg1 = range(97,111)+range(117,131)
         self.leg2 = range(163,178)+range(184,198)
+        self.earl = range(0,0)
+        self.earr = range(0,0)
 
         self.arr = [0,0,0] * 302
 
