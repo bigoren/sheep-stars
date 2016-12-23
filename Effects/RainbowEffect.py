@@ -14,4 +14,4 @@ class RainbowEffect(Effect):
             hue = i / float(len(self.indexes)) + time_precent
             if (hue >= 1):
                 hue -= 1
-            parent_array[self.indexes[i]*3 : self.indexes[i]*3+3] = [int(c*255) for c in colorsys.hsv_to_rgb(hue, 1.0, 0.4)]
+            parent_array[self.indexes[i]*3 : self.indexes[i]*3+3] = [int(c*255) for c in colorsys.hsv_to_rgb(hue, 1.0, 0.25)]

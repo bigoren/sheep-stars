@@ -6,6 +6,7 @@ from Colors import Colors
 from Animations_Sheep.SpinningHeadAnimation import SpinningHeadAnimation
 from Animations_Sheep.SheepConfettiAnimation import SheepConfettiAnimation
 from Animations_Sheep.RainbowAnimation import RainbowAnimation
+from Animations_Sheep.AlternateAnimation import AlternateAnimation
 from UIElements.SmallSheep import SmallSheep
 
 class FroggyWoogie(Song):
@@ -39,20 +40,26 @@ class FroggyWoogie(Song):
                 self.current_block_num = block_num
                 print block_num
                  #new animation
-                if current_block[2] == 'W':
-                    color1 = Colors.get_random_color()
-                    color2 = Colors.opposite_color(color1)
-                    typeW = random.randrange(2)
-                    typeW = 1
-                    if (typeW == 0):
+                if current_block[2] == 'S':
+                        color1 = Colors.get_random_color()
+                        color2 = Colors.opposite_color(color1)
+                        typeW = random.randrange(3)
+                        typeW = 1
+                        if (typeW == 0):
                             self.animations = [
                                 SpinningHeadAnimation(self.smallSheep, color1, current_block[1]/2),
-                                SpinningHeadAnimation(self.bigSheep34, color2, current_block[1]/2)]
-                    else:
+                                SpinningHeadAnimation(self.bigSheep12, color2, current_block[1]/2),
+                                SpinningHeadAnimation(self.bigSheep34, color1, current_block[1]/2)]
+                        elif (typeW == 1):
                             self.animations = [
-                                RainbowAnimation(self.smallSheep, current_block[1]/8),
-                                RainbowAnimation(self.bigSheep12, current_block[1]/8),
-                                RainbowAnimation(self.bigSheep34, current_block[1]/8)]
+                                AlternateAnimation(self.smallSheep, current_block[1]/4),
+                                AlternateAnimation(self.bigSheep12, current_block[1]/4),
+                                AlternateAnimation(self.bigSheep34, current_block[1]/4)]
+                        else:
+                            self.animations = [
+                                RainbowAnimation(self.smallSheep, current_block[1]/4),
+                                RainbowAnimation(self.bigSheep12, current_block[1]/4),
+                                RainbowAnimation(self.bigSheep34, current_block[1]/4)]
                 else:
                     self.animations = [
                         SheepConfettiAnimation(self.smallSheep),
