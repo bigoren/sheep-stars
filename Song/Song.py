@@ -3,13 +3,13 @@ import networking_may as networking
 import pygame
 from UIElements.SmallSheep import SmallSheep
 from UIElements.BigSheep34 import BigSheep34
+from UIElements.BigSheep12 import BigSheep12
 
 class Song(object):
     
         def __init__(self):
-                self.bigSheep12_mock = [100,100,100]*600
-
                 self.smallSheep = SmallSheep()
+                self.bigSheep12 = BigSheep12()
                 self.bigSheep34 = BigSheep34()
       
                 self.cycle_num = 0
@@ -28,7 +28,7 @@ class Song(object):
                         self.apply_animations(song_time)
                         networking.send(cycle_num,
                                         self.smallSheep.get_array(),
-                                        self.bigSheep12_mock,
+                                        self.bigSheep12.get_array(),
                                         self.bigSheep34.get_array())
                         clock.tick(50)
 

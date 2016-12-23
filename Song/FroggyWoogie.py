@@ -43,11 +43,13 @@ class FroggyWoogie(Song):
                     color2 = Colors.opposite_color(color1)
                     self.animations = [
                         SpinningHeadAnimation(self.smallSheep, color1, current_block[1]/2),
-                        SpinningHeadAnimation(self.bigSheep34, color2, current_block[1]/2)]
+                        SpinningHeadAnimation(self.bigSheep34, color2, current_block[1]/2),
+                        SpinningHeadAnimation(self.bigSheep12, color2, current_block[1]/2)]
                 else:
                     self.animations = [
                         SheepConfettiAnimation(self.smallSheep),
-                        SheepConfettiAnimation(self.bigSheep34)]
+                        SheepConfettiAnimation(self.bigSheep34),
+                        SheepConfettiAnimation(self.bigSheep12)]
                     
             percent = (current_time - current_block[0]) / current_block[3]
             for animation in self.animations:

@@ -32,7 +32,6 @@ const int pixelsInPacket = 300;
 #define PACKET_SIZE (pixelsInPacket * 3 + 1 + 3)
 
 const int totalUniverses = 2;
-const int minUniverse = 0;
 bool universesReceived[totalUniverses];
 
 DMAMEM int displayMemory[ledsPerStrip*6];
@@ -46,7 +45,7 @@ OctoWS2811 leds(ledsPerStrip, displayMemory, drawingMemory, config);
 byte mac[] = {
   0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xD2 //last byte should be the hex of the last byte of the ip address
 };
-IPAddress ip( 192,168,2,210 );
+IPAddress ip( 10,0,0,210 );
 
 unsigned int localPort = 2000;      // local port to listen on
 
@@ -112,11 +111,11 @@ int UniverseToPixelNumber(char universe)
 {
   switch(universe)
   {
-    case 0: 
+    case 1: 
       universesReceived[0] = true;
       return ledsPerStrip * 0 + pixelsInPacket * 0;
       
-    case 1: 
+    case 2: 
       universesReceived[1] = true;
       return ledsPerStrip * 0 + pixelsInPacket * 1;
 

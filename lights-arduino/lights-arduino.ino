@@ -27,14 +27,22 @@ CRGB leds[NUM_LEDS];
 // Enter a MAC address and IP address for your controller below.
 // The IP address will be dependent on your local network:
 byte mac[] = {
-  0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xC9 //last byte should be the hex of the last byte of the ip address
+  0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xC8 //last byte should be the hex of the last byte of the ip address
 };
-IPAddress ip( 192,168,1,201 );
+IPAddress ip( 10,0,0,200 );
 
 unsigned int localPort = 2000;      // local port to listen on
 
 // An EthernetUDP instance to let us send and receive packets over UDP
 EthernetUDP Udp;
+
+void RGBtoGRB(int pixelNum)
+{
+  CRGB orig = leds[pixelNum];
+  leds[pixelNum].r = orig.g;
+  leds[pixelNum].g = orig.r;
+  leds[pixelNum].b = orig.b;
+}
 
 void setup() {
 
@@ -72,7 +80,7 @@ void loop() {
 
     char universe;
     Udp.read(&universe, 1);
-    if(universe == 0)
+    if(universe == 5)
     {
       char frameNum[3];
       Udp.read((char *)frameNum, 3);
