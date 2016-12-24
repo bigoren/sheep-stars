@@ -175,7 +175,7 @@ class Song(object):
                         SheepConfettiAnimation(self.smallSheep, leds_percent_per_cycle),
                         SheepConfettiAnimation(self.bigSheep12, leds_percent_per_cycle),
                         SheepConfettiAnimation(self.bigSheep34, leds_percent_per_cycle),
-                        FadeInOutStarsAnimation(self.stars, num_of_blocks)]
+                        FadeInOutStarsAnimation(self.stars, current_block[1])]
 
         def show_rainbow_animation(self, current_block):
                 print "rainbow"
