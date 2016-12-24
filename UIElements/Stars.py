@@ -7,3 +7,6 @@ class Stars:
         
     def get_array(self):
         return self.arr
+
+    def get_all_indexes(self):
+        return range(0,300)

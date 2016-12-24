@@ -21,6 +21,8 @@ from Animations_Sheep.SnakeAnimation import SnakeAnimation
 from Animations_Sheep.FibonacciAnimation import FibonacciAnimation
 from Animations_Sheep.BrokenAnimation import BrokenAnimation
 
+from Animations_Stars.FadeInOutStarsAnimation import FadeInOutStarsAnimation
+
 class Song(object):
     
         def __init__(self):
@@ -46,8 +48,8 @@ class Song(object):
                 clock = pygame.time.Clock()
                 while pygame.mixer.music.get_busy():
                         song_time = pygame.mixer.music.get_pos()
-                        song_time = song_time/1000.0
-                        #song_time = max(song_time/1000.0 - 0.6, 0)
+                        #song_time = song_time/1000.0
+                        song_time = max(song_time/1000.0 - 0.6, 0)
                         self.apply_animations(song_time)
                         networking.send(cycle_num,
                                         self.smallSheep.get_array(),
@@ -135,15 +137,18 @@ class Song(object):
                 hue1 = random.random()
                 hue2 = hue1
                 hue3 = hue1
+                hue4 = hue1
                 
                 if current_block[2] == 'S':
                         hue2 = Colors.reduce_by_1(hue1+0.111)
                         hue3 = Colors.reduce_by_1(hue1+0.222)
+                        hue3 = Colors.reduce_by_1(hue1+0.333)
                         
                 self.animations = [
                         FadeInOutAnimation(self.smallSheep, num_of_blocks, hue2),
                         FadeInOutAnimation(self.bigSheep12, num_of_blocks, hue1),
-                        FadeInOutAnimation(self.bigSheep34, num_of_blocks, hue3)]
+                        FadeInOutAnimation(self.bigSheep34, num_of_blocks, hue3),
+                        FadeInOutStarsAnimation(self.stars, num_of_blocks, hue4)]
 
         def show_sheep_confetti_animation(self, current_block):
                 print "confetti"
