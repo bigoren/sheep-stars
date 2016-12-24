@@ -65,13 +65,11 @@ class Song(object):
             current_block = self.plan[block_num]
             if (block_num != self.current_block_num):
                 self.current_block_num = block_num
-                print block_num
-
-                 #new animation
+                print str(block_num) + " - " + str(current_block)
                 if current_block[2] == 'S':
-                        self.weak_animation(current_block[1])
+                        self.strong_animation(current_block)
                 else:
-                        self.weak_animation(current_block[1])
+                       self.weak_animation(current_block)
               
             percent = (current_time - current_block[0]) / current_block[3]
             for animation in self.animations:
@@ -82,9 +80,27 @@ class Song(object):
                 while original % div != 0:
                         div = div/2
                 return original/div
+
+        def show_alternate_animation(self, current_block):
+                num_of_blocks = current_block[1]
+                if current_block[2] == 'W':
+                        num_of_blocks = self.num_of_blocks(num_of_blocks , 2)
+
+                hue1 = random.random()
+                hue2 = hue1
+                hue3 = hue1
+                
+                if current_block[2] == 'S':
+                        hue2 = Colors.reduce_by_1(hue1+0.333)
+                        hue3 = Colors.reduce_by_1(hue1+0.666)
+                        
+                self.animations = [
+                        AlternateAnimation(self.smallSheep, num_of_blocks, hue2),
+                        AlternateAnimation(self.bigSheep12, num_of_blocks, hue1),
+                        AlternateAnimation(self.bigSheep34, num_of_blocks, hue3)]
         
-        def weak_animation(self, bit):
-                num_of_blocks1 = bit
+        def weak_animation(self, current_block):
+                num_of_blocks1 = current_block[1]
                 num_of_blocks2 = self.num_of_blocks(num_of_blocks1 , 2)
                 num_of_blocks4 = self.num_of_blocks(num_of_blocks1 , 4)
                 num_of_blocks8 = self.num_of_blocks(num_of_blocks1 , 8)
@@ -107,10 +123,7 @@ class Song(object):
                         FadeInOutAnimation(self.bigSheep34, num_of_blocks2)]
 
                 elif (typeW == 2):
-                    self.animations = [
-                        AlternateAnimation(self.smallSheep, num_of_blocks2),
-                        AlternateAnimation(self.bigSheep12, num_of_blocks2),
-                        AlternateAnimation(self.bigSheep34, num_of_blocks2)]
+                    self.show_alternate_animation(current_block)
 
                 elif (typeW == 3):
                     self.animations = [
@@ -124,8 +137,8 @@ class Song(object):
                         RainbowAnimation(self.bigSheep12, num_of_blocks4),
                         RainbowAnimation(self.bigSheep34, num_of_blocks4)]
 
-        def strong_animation(self, bit):
-                num_of_blocks1 = bit
+        def strong_animation(self, current_block):
+                num_of_blocks1 = current_block[1]
                 num_of_blocks2 = self.num_of_blocks(num_of_blocks1 , 2)
                 num_of_blocks4 = self.num_of_blocks(num_of_blocks1 , 4)
                 num_of_blocks8 = self.num_of_blocks(num_of_blocks1 , 8)
@@ -148,10 +161,7 @@ class Song(object):
                         FadeInOutAnimation(self.bigSheep34, num_of_blocks)]
 
                 elif (typeS == 2):
-                    self.animations = [
-                        AlternateAnimation(self.smallSheep, num_of_blocks1),
-                        AlternateAnimation(self.bigSheep12, num_of_blocks1),
-                        AlternateAnimation(self.bigSheep34, num_of_blocks1)]
+                        self.show_alternate_animation(current_block)
 
                 elif (typeS == 3):
                     self.animations = [

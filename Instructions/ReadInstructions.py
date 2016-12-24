@@ -22,6 +22,7 @@ def read_file(file_name):
         timestamp = calculate_timestamp(lineArr[0])
 
         # number of bits
+        print i
         bits = int(lineArr[1])
 
         #power W/M/S
@@ -38,5 +39,5 @@ def read_file(file_name):
   
     return instructions
 
-instructions = read_file('Dream-on.txt')
+instructions = read_file('borealis.txt')
 print instructions
