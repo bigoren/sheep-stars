@@ -82,9 +82,9 @@ class Song(object):
             for animation in self.animations:
                 animation.apply(percent)
 
-            if (block_num == len(self.plan)-1 and percent >= 0.8):
+            if (block_num == len(self.plan)-1):
                     # fade out - end of the song
-                    power = 1-(percent - 0.8)*5
+                    power = 1-percent
                     print "fade_out " + str(power)
                     data = self.smallSheep.get_array() + self.bigSheep12.get_array() + self.bigSheep34.get_array() + self.stars.get_array()
                     for i in range(len(self.smallSheep.get_array())):

@@ -1,7 +1,7 @@
 from Song import Song
 
 class TaPaDa(Song):
-
+        
         def __init__(self):
                 super(TaPaDa, self).__init__()
                 self.file = 'Music/TaPaDa.mp3'

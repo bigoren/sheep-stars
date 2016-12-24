@@ -10,6 +10,12 @@ from Song.Borealis import Borealis
 from Song.SweetDreams import SweetDreams
 from Song.DreamOn import DreamOn
 from Song.ChristmasDubstep import ChristmasDubstep
+import networking_may as netwroking
+
+from UIElements.SmallSheep import SmallSheep
+from UIElements.BigSheep12 import BigSheep12
+from UIElements.BigSheep34 import BigSheep34
+from UIElements.Stars import Stars
 
 ########################################################
 # setup GPIO
@@ -42,6 +48,25 @@ def button1_is():
 def button2_is():
     return GPIO.input(22)
 
+def animate_sheeps_sound(trans_cycles):
+    smallSheep = SmallSheep()
+    smallSheepArr = [0] * len(smallSheep.get_array())
+    for i in range(len(smallSheep.get_all_indexes())):
+        smallSheepArr[smallSheep.get_all_indexes()[i]*3 : smallSheep.get_all_indexes()[i]*3+3] = [5,5,5]
+    smallSheepArr[900 : 906] = [255,0,0,255,0,0]
+    bigSheep12 = BigSheep12()
+    bigSheep12Arr = [0] * len(bigSheep12.get_array())
+    for i in range(len(bigSheep12.get_all_indexes())):
+        bigSheep12Arr[bigSheep12.get_all_indexes()[i]*3 : bigSheep12.get_all_indexes()[i]*3+3] = [5,5,5]
+    bigSheep34 = BigSheep34()
+    bigSheep34Arr = [0] * len(bigSheep34.get_array())
+    for i in range(len(bigSheep34.get_all_indexes())):
+        bigSheep34Arr[bigSheep34.get_all_indexes()[i]*3 : bigSheep34.get_all_indexes()[i]*3+3] = [5,5,5]
+    stars = Stars()
+    starsArr = [1] * len(stars.get_array())
+
+    netwroking.send(trans_cycles,smallSheepArr,bigSheep12Arr,bigSheep34Arr,starsArr)
+
 def transition(cycle_time=0.5,trans_cycles=60):
     print "buttons are on waiting for press"
     flag = 1
@@ -51,6 +76,7 @@ def transition(cycle_time=0.5,trans_cycles=60):
     
     while (trans_cycles != 0):
         trans_cycles = trans_cycles - 1
+        animate_sheeps_sound(trans_cycles)
         if flag:
             #print "light button"
             lit_button1()
