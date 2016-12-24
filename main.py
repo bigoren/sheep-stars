@@ -10,7 +10,9 @@ from Song.Borealis import Borealis
 from Song.SweetDreams import SweetDreams
 from Song.DreamOn import DreamOn
 from Song.ChristmasDubstep import ChristmasDubstep
-import networking_may as netwroking
+import networking_may as networking
+import random
+import colorsys
 
 from UIElements.SmallSheep import SmallSheep
 from UIElements.BigSheep12 import BigSheep12
@@ -48,6 +50,19 @@ def button1_is():
 def button2_is():
     return GPIO.input(22)
 
+def send_signs(on1, on2, color):
+    data1 = [0,0,0] * 75
+    data2 = [0,0,0] * 75
+    data3 = [0,0,0] * 75
+    data4 = [0,0,0] * 75
+    if (on1):
+        data1 = color *75
+        data3 = color *75
+    if (on2):
+        data2 = color *75
+        data4 = color *75
+    networking.sendSigns(0, data1+data2+data3+data4)
+    
 def animate_sheeps_sound(trans_cycles):
     smallSheep = SmallSheep()
     smallSheepArr = [0] * len(smallSheep.get_array())
@@ -65,7 +80,7 @@ def animate_sheeps_sound(trans_cycles):
     stars = Stars()
     starsArr = [1] * len(stars.get_array())
 
-    netwroking.send(trans_cycles,smallSheepArr,bigSheep12Arr,bigSheep34Arr,starsArr)
+    networking.send(trans_cycles,smallSheepArr,bigSheep12Arr,bigSheep34Arr,starsArr)
 
 def transition(cycle_time=0.5,trans_cycles=60):
     print "buttons are on waiting for press"
@@ -108,8 +123,11 @@ def clap():
     pygame.mixer.music.load('Music/clap.mp3')
     pygame.mixer.music.play(0)
     clock = pygame.time.Clock()
+    on1 = random.randrange(2)
+    color = [int(c*255) for c in colorsys.hsv_to_rgb(random.random(), 0.75, 0.1)]
     while pygame.mixer.music.get_busy():
         clock.tick(50)
+        send_signs(on1 == 0, on1 == 1, color)
 
 def sheep():
     pygame.mixer.init()
@@ -130,6 +148,7 @@ def run(sleep_time=0.5,trans_cycles=60):
             clap()
             song = SweetDreams()
             song.play(11)
+            send_signs(1, 1, [0,0,0])
         song = FroggyWoogie()
         song.play()
         user_answer=transition(sleep_time)
@@ -139,6 +158,7 @@ def run(sleep_time=0.5,trans_cycles=60):
             clap()
             song = DreamOn()
             song.play()
+            send_signs(1, 1, [0,0,0])
         song = ChronosThought()
         song.play()
         user_answer=transition(sleep_time)
@@ -148,6 +168,7 @@ def run(sleep_time=0.5,trans_cycles=60):
             clap()
             song = ChristmasDubstep()
             song.play()
+            send_signs(1, 1, [0,0,0])
         song = CloudstructureLasttime()
         song.play()
         user_answer=transition(sleep_time)
@@ -157,6 +178,7 @@ def run(sleep_time=0.5,trans_cycles=60):
             clap()
             song = SweetDreams()
             song.play(11)
+            send_signs(1, 1, [0,0,0])
         song = TaPaDa()
         song.play()
         user_answer=transition(sleep_time)
@@ -166,6 +188,7 @@ def run(sleep_time=0.5,trans_cycles=60):
             clap()
             song = DreamOn()
             song.play()
+            send_signs(1, 1, [0,0,0])
         song = Borealis()
         song.play()
         user_answer=transition(sleep_time)
@@ -175,6 +198,7 @@ def run(sleep_time=0.5,trans_cycles=60):
             clap()
             song = ChristmasDubStep()
             song.play()
+            send_signs(1, 1, [0,0,0])
         song = SweetDreams()
         song.play(11)
         song = DreamOn()
@@ -188,5 +212,5 @@ def run(sleep_time=0.5,trans_cycles=60):
 ########################################################
 ##  run(sleep_time=0.5,trans_cycles=60)
 ##  make sure sleep_time*trans_cycles is about 30 to match transition sheep
-run(0.3,90)
+run(0.3,60)
 
