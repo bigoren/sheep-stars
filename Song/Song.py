@@ -76,7 +76,7 @@ class Song(object):
                 self.current_block_num = block_num
                 print str(block_num) + " - " + str(current_block)
                 self.show_random_animation(current_block)
-                #self.show_fade_in_out_animation(current_block)
+                self.show_fade_in_out_animation(current_block)
               
             percent = (current_time - current_block[0]) / current_block[3]
             for animation in self.animations:
