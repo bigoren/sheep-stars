@@ -47,7 +47,13 @@ class BigSheep34(Sheep):
 
     # -- Ears -- #
     def get_ears_indexes(self):
-		return self.earl + self.earr
+        return self.earl + self.earr
+
+    def get_inner_ear_indexes(self):
+        return self.earl
+
+    def get_outer_ear_indexes(self):
+        return self.earr
 
     # -- Legs -- #
     
@@ -60,8 +66,20 @@ class BigSheep34(Sheep):
     def get_leg12_connection_index(self):
         return 492;
 
+    def get_leg12_side1_indexes(self):
+       return self.legll
+
+    def get_leg12_side2_indexes(self):
+        return self.leglr
+
     def get_leg34_indexes(self):
         return self.legrl + self.legrr
     
     def get_leg34_connection_index(self):
         return 366
+
+    def get_leg34_side1_indexes(self):
+       return self.legrl
+
+    def get_leg34_side2_indexes(self):
+        return self.legrr

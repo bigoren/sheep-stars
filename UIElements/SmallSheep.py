@@ -26,6 +26,15 @@ class SmallSheep(Sheep):
     def get_head_indexes(self):
         return self.head
 
+    def get_ears_indexes(self):
+        return []
+
+    def get_inner_ear_indexes(self):
+        return []
+
+    def get_outer_ear_indexes(self):
+        return []
+
 
     # -- Body -- #
     
@@ -50,11 +59,23 @@ class SmallSheep(Sheep):
     def get_leg12_indexes(self):
         return self.leg1
 
+    def get_leg12_side1_indexes(self):
+       return []
+
+    def get_leg12_side2_indexes(self):
+        return []
+
     def get_leg12_connection_index(self):
         return 133;
 
     def get_leg34_indexes(self):
         return self.leg2
+
+    def get_leg34_side1_indexes(self):
+       return []
+
+    def get_leg34_side2_indexes(self):
+        return []
 
     def get_leg34_connection_index(self):
         return 200

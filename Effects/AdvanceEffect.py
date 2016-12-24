@@ -4,12 +4,20 @@ import colorsys
 import math
 
 class AdvanceEffect(Effect):
-    
-    def __init__(self, indexes, current_spin):
-        Effect.__init__(self, indexes)
-        self.color_now = self._get_color_from_change_id(current_spin)
-        self.color_before = self._get_color_from_change_id(current_spin-1)
-        print self.color_before
+        
+    @classmethod
+    def initSpin(cls, indexes, current_spin):
+        effect = cls(indexes)
+        indexes.color_now = self._get_color_from_change_id(current_spin)
+        indexes.color_before = self._get_color_from_change_id(current_spin-1)
+        return effect
+
+    @classmethod
+    def initColor(cls, indexes, base_color, to_color):
+        effect = cls(indexes)
+        effect.color_before = base_color
+        effect.color_now = to_color
+        return effect
    
     def apply(self, time_precent, parent_array):
         

@@ -2,7 +2,7 @@ from AbstractEffect import Effect
 
 import math
 
-class AlternateColorEffect(Effect):
+class AlternateColorEvery3Effect(Effect):
     
     def __init__(self, indexes, color1, color2):
         Effect.__init__(self, indexes)

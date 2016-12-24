@@ -15,6 +15,14 @@ class Sheep:
     @abstractmethod
     def get_head_indexes(self): pass
 
+    @abstractmethod
+    def get_ears_indexes(self): pass
+
+    @abstractmethod
+    def get_inner_ear_indexes(self): pass
+
+    @abstractmethod
+    def get_outer_ear_indexes(self): pass
 
     # -- Body -- ##
 
@@ -34,7 +42,19 @@ class Sheep:
     def get_leg12_indexes(self): pass
 
     @abstractmethod
+    def get_leg12_side1_indexes(self): pass
+
+    @abstractmethod
+    def get_leg12_side2_indexes(self): pass
+
+    @abstractmethod
     def get_leg34_indexes(self): pass
+
+    @abstractmethod
+    def get_leg34_side1_indexes(self): pass
+
+    @abstractmethod
+    def get_leg34_side2_indexes(self): pass
     
     @abstractmethod
     def get_leg12_connection_index(self): pass

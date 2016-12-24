@@ -1,6 +1,11 @@
 import colorsys
 import random
 
+def reduce_by_1(x):
+        if x>=1:
+            return x-1
+        return x
+
 def opposite_color((r, g, b)):
     return [255-r, 255-g, 255-b]
 
