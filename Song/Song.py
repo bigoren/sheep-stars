@@ -76,7 +76,7 @@ class Song(object):
                 self.current_block_num = block_num
                 print str(block_num) + " - " + str(current_block)
                 self.show_random_animation(current_block)
-                self.show_fade_in_out_animation(current_block)
+                #self.show_fade_in_out_animation(current_block)
               
             percent = (current_time - current_block[0]) / current_block[3]
             for animation in self.animations:
@@ -216,7 +216,7 @@ class Song(object):
                                    FibonacciAnimation(self.bigSheep34, num_of_blocks, hue3)]
 
         def show_broken_animation(self, current_block):
-                print "borken"
+                print "broken"
                 num_of_blocks = self.num_of_blocks(current_block[1], 1)
                 if current_block[2] == 'W':
                         num_of_blocks = self.num_of_blocks(num_of_blocks , 2)
