@@ -61,7 +61,7 @@ class Song(object):
                 cycle_num += 1
 
         def apply_animations(self, current_time):
-     
+             
             #calculate current block
             block_num = -1
             for i in range(len(self.plan)):
@@ -77,10 +77,24 @@ class Song(object):
                 print str(block_num) + " - " + str(current_block)
                 self.show_random_animation(current_block)
                 #self.show_fade_in_out_animation(current_block)
-              
+
             percent = (current_time - current_block[0]) / current_block[3]
             for animation in self.animations:
                 animation.apply(percent)
+
+            if (block_num == len(self.plan)-1 and percent >= 0.8):
+                    # fade out - end of the song
+                    power = 1-(percent - 0.8)*5
+                    print "fade_out " + str(power)
+                    data = self.smallSheep.get_array() + self.bigSheep12.get_array() + self.bigSheep34.get_array() + self.stars.get_array()
+                    for i in range(len(self.smallSheep.get_array())):
+                        self.smallSheep.get_array()[i] = int(math.floor(self.smallSheep.get_array()[i] * power))
+                    for i in range(len(self.bigSheep12.get_array())):
+                        self.bigSheep12.get_array()[i] = int(math.floor(self.bigSheep12.get_array()[i] * power))
+                    for i in range(len(self.bigSheep34.get_array())):
+                        self.bigSheep34.get_array()[i] = int(math.floor(self.bigSheep34.get_array()[i] * power))
+                    for i in range(len(self.stars.get_array())):
+                        self.stars.get_array()[i] = int(math.floor(self.stars.get_array()[i] * power))
 
         def show_random_animation(self, current_block):
                 animationType = random.randrange(1,8)
