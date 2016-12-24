@@ -8,9 +8,9 @@ class FadeInOutEffect(Effect):
     def apply(self, time_precent, parent_array):
         for i in self.indexes:
             if (time_precent < 0.5):
-                power = time_precent * 2
+                power = 1 - time_precent * 2
             else:
-                power = (1 - time_precent) * 2
+                power = (time_precent - 0.5) * 2
             parent_array[i*3 : i*3+3] = [int(self.color[0] * power),
                                         int(self.color[1] * power),
                                         int(self.color[2] * power)]
