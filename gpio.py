@@ -8,8 +8,10 @@ from time import sleep
 
 GPIO.cleanup()
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(17, GPIO.IN)
+GPIO.setup(17, GPIO.IN, GPIO.PUD_DOWN)
+GPIO.setup(22, GPIO.IN, GPIO.PUD_DOWN)
 GPIO.setup(4, GPIO.OUT)
+GPIO.setup(27, GPIO.OUT)
 
 ########################################################
 # button defs
@@ -17,31 +19,52 @@ GPIO.setup(4, GPIO.OUT)
 
 def lit_button():
     GPIO.output(4, GPIO.HIGH)
+    GPIO.output(27, GPIO.HIGH)
 
 def unlit_button():
     GPIO.output(4, GPIO.LOW)
+    GPIO.output(27, GPIO.LOW)
 
-def button_is_pressed():
+def button1_is():
     return GPIO.input(17)
 
+def button2_is():
+    return GPIO.input(22)
+
+
+def run(sleep_time=0.5):
+    lit_button()
+    print "buttons are on waiting for press"
+    flag = 1
+    delay_cycles = 0
+
+    while 1:
+        if (delay_cycles == 0):
+            if flag:
+                #print "light button"
+                lit_button()
+                flag = 0
+            else:
+                #print "unlight button"
+                unlit_button()
+                flag = 1
+            
+            if button1_is():
+                print "button 1 pushed! "
+            if button2_is():    
+                print "button 2 pushed! "
+            if (button1_is() and button2_is()):
+                print "Double PUSH!"
+                unlit_button()
+                delay_cycles = 50
+
+        else:
+            delay_cycles = delay_cycles - 1
+        
+        sleep(sleep_time)
 ########################################################
 # start the app
 ########################################################
 
-lit_button()
-print "button is on waiting for press"
+run(0.3)
 
-while 1:
-    if button_is_pressed():
-        print "button pressed! turning led off"
-        unlit_button()
-        sleep(2)
-        #button_pressed()
-        print "turning led back on"
-        lit_button()
-    sleep(1)
-    # print "button off"
-    # unlit_button()
-    # sleep(1)
-    # print "button_on"
-    # lit_button()
