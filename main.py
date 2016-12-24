@@ -141,10 +141,10 @@ def sheep():
 def run(sleep_time=0.5,trans_cycles=60):
     while 1:
         song = Dreams()
-        #song.play()
-        user_answer=transition(sleep_time)
+        song.play()
+        user_answer=transition(sleep_time,trans_cycles)
         if (~user_answer):
-            user_answer=transition(sleep_time)
+            user_answer=transition(sleep_time,trans_cycles)
         if (user_answer):
             clap()
             song = SweetDreams()
@@ -152,9 +152,9 @@ def run(sleep_time=0.5,trans_cycles=60):
             send_signs(1, 1, [0,0,0])
         song = FroggyWoogie()
         song.play()
-        user_answer=transition(sleep_time)
+        user_answer=transition(sleep_time,trans_cycles)
         if (~user_answer):
-            user_answer=transition(sleep_time)
+            user_answer=transition(sleep_time,trans_cycles)
         if (user_answer):
             clap()
             song = DreamOn()
@@ -162,9 +162,9 @@ def run(sleep_time=0.5,trans_cycles=60):
             send_signs(1, 1, [0,0,0])
         song = ChronosThought()
         song.play()
-        user_answer=transition(sleep_time)
+        user_answer=transition(sleep_time,trans_cycles)
         if (~user_answer):
-            user_answer=transition(sleep_time)
+            user_answer=transition(sleep_time,trans_cycles)
         if (user_answer):
             clap()
             song = ChristmasDubstep()
@@ -172,9 +172,9 @@ def run(sleep_time=0.5,trans_cycles=60):
             send_signs(1, 1, [0,0,0])
         song = CloudstructureLasttime()
         song.play()
-        user_answer=transition(sleep_time)
+        user_answer=transition(sleep_time,trans_cycles)
         if (~user_answer):
-            user_answer=transition(sleep_time)
+            user_answer=transition(sleep_time,trans_cycles)
         if (user_answer):
             clap()
             song = SweetDreams()
@@ -182,9 +182,9 @@ def run(sleep_time=0.5,trans_cycles=60):
             send_signs(1, 1, [0,0,0])
         song = TaPaDa()
         song.play()
-        user_answer=transition(sleep_time)
+        user_answer=transition(sleep_time,trans_cycles)
         if (~user_answer):
-            user_answer=transition(sleep_time)
+            user_answer=transition(sleep_time,trans_cycles)
         if (user_answer):
             clap()
             song = DreamOn()
@@ -192,9 +192,9 @@ def run(sleep_time=0.5,trans_cycles=60):
             send_signs(1, 1, [0,0,0])
         song = Borealis()
         song.play()
-        user_answer=transition(sleep_time)
+        user_answer=transition(sleep_time,trans_cycles)
         if (~user_answer):
-            user_answer=transition(sleep_time)
+            user_answer=transition(sleep_time,trans_cycles)
         if (user_answer):
             clap()
             song = ChristmasDubStep()
@@ -204,9 +204,9 @@ def run(sleep_time=0.5,trans_cycles=60):
         song.play(11)
         song = NiceDream()
         song.play()
-        user_answer=transition(sleep_time)
+        user_answer=transition(sleep_time,trans_cycles)
         if (~user_answer):
-            user_answer=transition(sleep_time)
+            user_answer=transition(sleep_time,trans_cycles)
         if (user_answer):
             clap()
             song = TaPaDa()
@@ -223,5 +223,5 @@ def run(sleep_time=0.5,trans_cycles=60):
 ########################################################
 ##  run(sleep_time=0.5,trans_cycles=60)
 ##  make sure sleep_time*trans_cycles is about 30 to match transition sheep
-run(0.3,60)
+run(0.3,30)
 
