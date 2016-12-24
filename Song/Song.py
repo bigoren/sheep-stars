@@ -10,6 +10,7 @@ from Colors import Colors
 from UIElements.SmallSheep import SmallSheep
 from UIElements.BigSheep34 import BigSheep34
 from UIElements.BigSheep12 import BigSheep12
+from UIElements.Stars import Stars
 
 from Animations_Sheep.SpinningHeadAnimation import SpinningHeadAnimation
 from Animations_Sheep.SheepConfettiAnimation import SheepConfettiAnimation
@@ -26,6 +27,7 @@ class Song(object):
                 self.smallSheep = SmallSheep()
                 self.bigSheep12 = BigSheep12()
                 self.bigSheep34 = BigSheep34()
+                self.stars = Stars()
 
                 self.current_block_num = -1;
                 
@@ -50,7 +52,8 @@ class Song(object):
                         networking.send(cycle_num,
                                         self.smallSheep.get_array(),
                                         self.bigSheep12.get_array(),
-                                        self.bigSheep34.get_array())
+                                        self.bigSheep34.get_array(),
+                                        self.stars.get_array())
                         clock.tick(50)
 
                 cycle_num += 1
