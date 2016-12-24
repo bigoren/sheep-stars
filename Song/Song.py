@@ -38,12 +38,12 @@ class Song(object):
       
                 self.cycle_num = 0
 
-        def play(self):
+        def play(self, pos=0):
                 cycle_num = 0
                 
                 pygame.mixer.init()
                 pygame.mixer.music.load(self.file)
-                pygame.mixer.music.play(0)
+                pygame.mixer.music.play(0,pos)
 
                 clock = pygame.time.Clock()
                 while pygame.mixer.music.get_busy():

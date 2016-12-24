@@ -11,7 +11,7 @@ class FadeInOutStarsAnimation(AbstractStarsAnimation):
 
     def __init__(self, stars, num_of_spins):
         AbstractStarsAnimation.__init__(self, stars)
-        self.num_of_spins = num_of_spins / 2
+        self.num_of_spins = max(num_of_spins / 2,1)
         self.current_spin = -1
         self.stars_to_apply = []
     

@@ -129,7 +129,7 @@ def run(sleep_time=0.5,trans_cycles=60):
         if (user_answer):
             clap()
             song = SweetDreams()
-            song.play()
+            song.play(11)
         song = FroggyWoogie()
         song.play()
         user_answer=transition(sleep_time)
@@ -156,7 +156,7 @@ def run(sleep_time=0.5,trans_cycles=60):
         if (user_answer):
             clap()
             song = SweetDreams()
-            song.play()
+            song.play(11)
         song = TaPaDa()
         song.play()
         user_answer=transition(sleep_time)
@@ -176,7 +176,7 @@ def run(sleep_time=0.5,trans_cycles=60):
             song = ChristmasDubStep()
             song.play()
         song = SweetDreams()
-        song.play()
+        song.play(11)
         song = DreamOn()
         song.play()
         song = ChristmasDubStep()
