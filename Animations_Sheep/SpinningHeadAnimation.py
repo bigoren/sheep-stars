@@ -22,8 +22,8 @@ class SpinningHeadAnimation(SheepAnimation):
         bodyEffect = AdvanceEffect(self.sheep.get_body_indexes(), self.current_spin)
         legsEffect = AlternateColorEffect(self.sheep.get_legs_indexes(), self.legsColor1, self.legsColor2)
         headEffect = SpinningFadeEffect(self.sheep.get_head_indexes(),self.headColor)
-        earlEffect = AdvanceEffect(self.sheep.earl, self.current_spin)
-        earrEffect = AdvanceEffect(self.sheep.earr, self.current_spin)
+        earlEffect = AdvanceEffect.initSpin(self.sheep.earl, self.current_spin)
+        earrEffect = AdvanceEffect.initSpin(self.sheep.earr, self.current_spin)
         self.effects = [bodyEffect, legsEffect, headEffect, earlEffect, earrEffect]
     
     def apply(self, time_percent):

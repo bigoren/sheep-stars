@@ -1,3 +1,4 @@
+import math
 from AbstractEffect import Effect
 
 class FadeInEffect(Effect):
@@ -6,6 +7,7 @@ class FadeInEffect(Effect):
         self.color = color
     
     def apply(self, time_percent, parent_array):
+        time_percent = math.pow(time_percent, 3)
         for i in self.indexes:
             parent_array[i*3 : i*3+3] = [
                 int(self.color[0] * time_percent),

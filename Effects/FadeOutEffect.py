@@ -1,3 +1,4 @@
+import math
 from AbstractEffect import Effect
 
 class FadeOutEffect(Effect):
@@ -6,10 +7,11 @@ class FadeOutEffect(Effect):
         self.color = color
     
     def apply(self, time_percent, parent_array):
+        power = math.pow(1-time_percent, 3)
         for i in self.indexes:
             parent_array[i*3 : i*3+3] = [
-                int(self.color[0] * (1-time_percent)),
-                int(self.color[1] * (1-time_percent)),
-                int(self.color[2] * (1-time_percent))]
+                int(self.color[0] * power),
+                int(self.color[1] * power),
+                int(self.color[2] * power)]
 
 
