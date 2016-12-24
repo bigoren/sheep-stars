@@ -5,7 +5,7 @@ def calculate_timestamp(str):
         min = int(timestampArr[1])
         sec = float(timestampArr[2])
         timestamp = sec + min * 60 + hour * 60 * 60
-
+        timestamp = round(timestamp,3)
         return timestamp
 
 def read_file(file_name):
@@ -30,7 +30,6 @@ def read_file(file_name):
         instructions.append([timestamp,bits,power])        
 
     #duration
-    print instructions
     for i in range (0, len(lines)-2):
         duration = round(instructions[i+1][0]-instructions[i][0],3)
         instructions[i].append(duration)
@@ -39,5 +38,5 @@ def read_file(file_name):
   
     return instructions
 
-instructions = read_file('5-Sleepy_Koala_-_Froggy_Woogie.txt')
+instructions = read_file('Dream-on.txt')
 print instructions
