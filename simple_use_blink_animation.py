@@ -4,9 +4,8 @@ from Song.CloudstructureLasttime import CloudstructureLasttime
 from Song.DreamOn import DreamOn
 from Song.TaPaDa import TaPaDa
 from Song.Borealis import Borealis
+from Song.ChristmasDubstep import ChristmasDubstep
+from Song.Dreams import Dreams
 
-song = FroggyWoogie()
+song = Dreams()
 song.play()
-
-	
-	

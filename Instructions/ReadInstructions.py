@@ -39,5 +39,5 @@ def read_file(file_name):
   
     return instructions
 
-instructions = read_file('borealis.txt')
+instructions = read_file('dreams.txt')
 print instructions
