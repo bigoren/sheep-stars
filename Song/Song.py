@@ -1,6 +1,7 @@
 import pygame
 import math
 import random
+import colorsys
 
 import networking_may as networking
 
@@ -16,6 +17,8 @@ from Animations_Sheep.RainbowAnimation import RainbowAnimation
 from Animations_Sheep.FadeInOutAnimation import FadeInOutAnimation
 from Animations_Sheep.AlternateAnimation import AlternateAnimation
 from Animations_Sheep.SnakeAnimation import SnakeAnimation
+from Animations_Sheep.FibonacciAnimation import FibonacciAnimation
+
 
 class Song(object):
     
@@ -67,14 +70,31 @@ class Song(object):
             if (block_num != self.current_block_num):
                 self.current_block_num = block_num
                 print str(block_num) + " - " + str(current_block)
-                if current_block[2] == 'S':
-                        self.strong_animation(current_block)
-                else:
-                       self.weak_animation(current_block)
+                #self.show_random_animation(current_block)
+                self.show_alternate_animation(current_block)
               
             percent = (current_time - current_block[0]) / current_block[3]
             for animation in self.animations:
                 animation.apply(percent)
+
+        def show_random_animation(self, current_block):
+                animationType = random.randrange(1,7)
+                        
+                if (animationType == 0):
+                        self.show_spinning_head_animation(current_block)
+                elif (animationType == 1):
+                    self.show_fade_in_out_animation(current_block)
+                elif (animationType == 2):
+                    self.show_alternate_animation(current_block)
+                elif (animationType == 3):
+                        self.show_sheep_confetti_animation(current_block)
+                elif (animationType == 4):
+                        self.show_rainbow_animation(current_block)
+                elif (animationType == 5):
+                        self.show_snake_animation(current_block)
+                else:
+                        self.show_fibonacci_animation(current_block)
+                        
 
 
         def num_of_blocks(self, original, div):
@@ -83,6 +103,7 @@ class Song(object):
                 return original/div
 
         def show_alternate_animation(self, current_block):
+                print "alternate"
                 num_of_blocks = current_block[1]
                 if current_block[2] == 'W':
                         num_of_blocks = self.num_of_blocks(num_of_blocks , 2)
@@ -101,6 +122,7 @@ class Song(object):
                         AlternateAnimation(self.bigSheep34, num_of_blocks, hue3)]
 
         def show_fade_in_out_animation(self, current_block):
+                print "fade_in_out"
                 num_of_blocks = current_block[1]
                 if current_block[2] == 'W':
                         num_of_blocks = self.num_of_blocks(num_of_blocks , 2)
@@ -119,6 +141,7 @@ class Song(object):
                         FadeInOutAnimation(self.bigSheep34, num_of_blocks, hue3)]
 
         def show_sheep_confetti_animation(self, current_block):
+                print "confetti"
                 leds_percent_per_cycle = 0.005
                 if current_block[2] == 'S':
                         leds_percent_per_cycle = 0.03
@@ -129,6 +152,7 @@ class Song(object):
                         SheepConfettiAnimation(self.bigSheep34, leds_percent_per_cycle)]
 
         def show_rainbow_animation(self, current_block):
+                print "rainbow"
                 num_of_blocks = self.num_of_blocks(current_block[1], 2)
                 if current_block[2] == 'W':
                         num_of_blocks = self.num_of_blocks(num_of_blocks , 4)
@@ -139,67 +163,45 @@ class Song(object):
                         RainbowAnimation(self.bigSheep34, num_of_blocks)]
 
         def show_snake_animation(self, current_block):
-                 self.animations = [
-                        SnakeAnimation(self.smallSheep),
-                        SnakeAnimation(self.bigSheep12),
-                        SnakeAnimation(self.bigSheep34)]
+                print "snake"
+                num_of_blocks = self.num_of_blocks(current_block[1], 2)
+                if current_block[2] == 'W':
+                        num_of_blocks = self.num_of_blocks(num_of_blocks , 4)
+                        
+                self.animations = [
+                        SnakeAnimation(self.smallSheep, num_of_blocks),
+                        SnakeAnimation(self.bigSheep12, num_of_blocks),
+                        SnakeAnimation(self.bigSheep34, num_of_blocks)]
+
+        def show_spinning_head_animation(self, current_block):
+                print "spinning_head"
+                num_of_blocks = self.num_of_blocks(current_block[1], 1)
+                if current_block[2] == 'W':
+                        num_of_blocks = self.num_of_blocks(num_of_blocks , 2)
+    
+                hue = random.random()
                 
-        def weak_animation(self, current_block):
-                num_of_blocks1 = current_block[1]
-                num_of_blocks2 = self.num_of_blocks(num_of_blocks1 , 2)
-                num_of_blocks4 = self.num_of_blocks(num_of_blocks1 , 4)
-                num_of_blocks8 = self.num_of_blocks(num_of_blocks1 , 8)
+                self.animations = [
+                        SpinningHeadAnimation(self.smallSheep, hue, num_of_blocks),
+                        SpinningHeadAnimation(self.bigSheep12, hue, num_of_blocks),
+                        SpinningHeadAnimation(self.bigSheep34, hue, num_of_blocks)]
 
-                color1 = Colors.get_random_color()
-                color2 = Colors.opposite_color(color1)
-
-                typeW = random.randrange(6)
-                typeW = 5
-                        
-                if (typeW == 0):
-                    self.animations = [
-                        SpinningHeadAnimation(self.smallSheep, color1, num_of_blocks4),
-                        SpinningHeadAnimation(self.bigSheep12, color2, num_of_blocks4),
-                        SpinningHeadAnimation(self.bigSheep34, color1, num_of_blocks4)]
-
-                elif (typeW == 1):
-                    self.show_fade_in_out_animation(current_block)
-                elif (typeW == 2):
-                    self.show_alternate_animation(current_block)
-                elif (typeW == 3):
-                        self.show_sheep_confetti_animation(current_block)
-                elif (typeW == 4):
-                        self.show_rainbow_animation(current_block)
-                else:
-                        self.show_snake_animation(current_block)
-
-        def strong_animation(self, current_block):
-                num_of_blocks1 = current_block[1]
-                num_of_blocks2 = self.num_of_blocks(num_of_blocks1 , 2)
-                num_of_blocks4 = self.num_of_blocks(num_of_blocks1 , 4)
-                num_of_blocks8 = self.num_of_blocks(num_of_blocks1 , 8)
-
-                color1 = Colors.get_random_color()
-                color2 = Colors.opposite_color(color1)
-
-                typeS = random.randrange(6)
-                typeS = 5
-                        
-                if (typeS == 0):
-                    self.animations = [
-                        SpinningHeadAnimation(self.smallSheep, color1, num_of_blocks),
-                        SpinningHeadAnimation(self.bigSheep12, color2, num_of_blocks),
-                        SpinningHeadAnimation(self.bigSheep34, color1, num_of_blocks)]
-
-                elif (typeS == 1):
-                        self.show_fade_in_out_animation(current_block)
-                elif (typeS == 2):
-                        self.show_alternate_animation(current_block)
-                elif (typeS == 3):
-                        self.show_sheep_confetti_animation(current_block)
-                elif (typeS == 4):
-                        self.show_rainbow_animation(current_block)
-                else:
-                        self.show_snake_animation(current_block)
-                    
+        def show_fibonacci_animation(self, current_block):
+            print "fibonacci"
+            num_of_blocks = self.num_of_blocks(current_block[1], 2)
+            if current_block[2] == 'W':
+                num_of_blocks = self.num_of_blocks(num_of_blocks , 4)
+                
+                hue1 = random.random()
+                hue2 = hue1
+                hue3 = hue1
+                
+                if current_block[2] == 'S':
+                    hue2 = Colors.reduce_by_1(hue1+0.111)
+                    hue3 = Colors.reduce_by_1(hue1+0.222)
+            
+                self.animations = [
+                                   FibonacciAnimation(self.smallSheep, num_of_blocks, hue2),
+                                   FibonacciAnimation(self.bigSheep12, num_of_blocks, hue1),
+                                   FibonacciAnimation(self.bigSheep34, num_of_blocks, hue3)]
 

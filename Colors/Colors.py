@@ -2,7 +2,7 @@ import colorsys
 import random
 
 def reduce_by_1(x):
-        if x>=1:
+        while x>=1:
             return x-1
         return x
 

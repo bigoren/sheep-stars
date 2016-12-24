@@ -37,7 +37,7 @@ class BigSheep12(Sheep):
         body_indexes = []
         for i in range(0, self.get_num_of_body_parts()):
             body_indexes += self.get_body_part_indexes(i)
-        return body_indexes
+        return body_indexes[::-1]
     
     def get_num_of_body_parts(self):
         return len(self.body)
