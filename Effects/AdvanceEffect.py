@@ -8,8 +8,8 @@ class AdvanceEffect(Effect):
     @classmethod
     def initSpin(cls, indexes, current_spin):
         effect = cls(indexes)
-        indexes.color_now = self._get_color_from_change_id(current_spin)
-        indexes.color_before = self._get_color_from_change_id(current_spin-1)
+        indexes.color_now = effect._get_color_from_change_id(current_spin)
+        indexes.color_before = effect._get_color_from_change_id(current_spin-1)
         return effect
 
     @classmethod

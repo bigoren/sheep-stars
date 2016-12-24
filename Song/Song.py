@@ -114,7 +114,7 @@ class Song(object):
                         hue3 = Colors.reduce_by_1(hue1+0.222)
                         
                 self.animations = [
-                        (self.smallSheep, num_of_blocks, hue2),
+                        FadeInOutAnimation(self.smallSheep, num_of_blocks, hue2),
                         FadeInOutAnimation(self.bigSheep12, num_of_blocks, hue1),
                         FadeInOutAnimation(self.bigSheep34, num_of_blocks, hue3)]
 
@@ -127,7 +127,17 @@ class Song(object):
                         SheepConfettiAnimation(self.smallSheep, leds_percent_per_cycle),
                         SheepConfettiAnimation(self.bigSheep12, leds_percent_per_cycle),
                         SheepConfettiAnimation(self.bigSheep34, leds_percent_per_cycle)]
-        
+
+        def show_rainbow_animation(self, current_block):
+                num_of_blocks = self.num_of_blocks(current_block[1], 2)
+                if current_block[2] == 'W':
+                        num_of_blocks = self.num_of_blocks(num_of_blocks , 4)
+    
+                self.animations = [
+                        RainbowAnimation(self.smallSheep, num_of_blocks),
+                        RainbowAnimation(self.bigSheep12, num_of_blocks),
+                        RainbowAnimation(self.bigSheep34, num_of_blocks)]
+                
         def weak_animation(self, current_block):
                 num_of_blocks1 = current_block[1]
                 num_of_blocks2 = self.num_of_blocks(num_of_blocks1 , 2)
@@ -138,7 +148,7 @@ class Song(object):
                 color2 = Colors.opposite_color(color1)
 
                 typeW = random.randrange(5)
-                #typeW = 3
+                #typeW = 4
                         
                 if (typeW == 0):
                     self.animations = [
@@ -152,9 +162,8 @@ class Song(object):
                     self.show_alternate_animation(current_block)
                 elif (typeW == 3):
                         self.show_sheep_confetti_animation(current_block)
-
                 else:
-                        self.show_snake_animation(current_block)
+                        self.show_rainbow_animation(current_block)
 
         def strong_animation(self, current_block):
                 num_of_blocks1 = current_block[1]
@@ -166,7 +175,7 @@ class Song(object):
                 color2 = Colors.opposite_color(color1)
 
                 typeS = random.randrange(5)
-                #typeS = 3
+                #typeS = 4
                         
                 if (typeS == 0):
                     self.animations = [
@@ -180,8 +189,7 @@ class Song(object):
                         self.show_alternate_animation(current_block)
                 elif (typeS == 3):
                         self.show_sheep_confetti_animation(current_block)
-
                 else:
-                        self.show_snake_animation(current_block)
+                        self.show_rainbow_animation(current_block)
                     
 

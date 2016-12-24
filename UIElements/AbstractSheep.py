@@ -22,7 +22,13 @@ class Sheep:
     def get_inner_ear_indexes(self): pass
 
     @abstractmethod
+    def get_inner_ear_connection_index(self): pass
+
+    @abstractmethod
     def get_outer_ear_indexes(self): pass
+
+    @abstractmethod
+    def get_outer_ear_connection_index(self): pass
 
     # -- Body -- ##
 

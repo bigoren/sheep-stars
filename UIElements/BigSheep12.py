@@ -50,10 +50,16 @@ class BigSheep12(Sheep):
         return self.earl + self.earr
 
     def get_inner_ear_indexes(self):
-        return self.earr
+        return self.earl
 
     def get_outer_ear_indexes(self):
-        return self.earl
+        return self.earr
+
+    def get_inner_ear_connection_index(self):
+        return 540
+
+    def get_outer_ear_connection_index(self):
+        return 474
 
     # -- Legs -- #
 

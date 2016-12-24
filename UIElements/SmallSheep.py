@@ -35,6 +35,12 @@ class SmallSheep(Sheep):
     def get_outer_ear_indexes(self):
         return []
 
+    def get_inner_ear_connection_index(self):
+        return -1
+
+    def get_outer_ear_connection_index(self):
+        return -1
+
 
     # -- Body -- #
     
