@@ -18,7 +18,7 @@ class FibonacciAnimation(SheepAnimation):
         if (spin != self.current_spin):
             self.current_spin = spin
             self.hue = Colors.reduce_by_1(self.hue+0.62)
-            self.effects = [AlwaysOnEffect(self.sheep.get_all_indexes(), [50,50,50]),
+            self.effects = [AlwaysOnEffect(self.sheep.get_all_indexes(), [30,30,30]),
                 FibonacciEffect(self.sheep.get_body_indexes(), self.hue)]
 
         oneSpinTime = 1.0 / float(self.num_of_spins)

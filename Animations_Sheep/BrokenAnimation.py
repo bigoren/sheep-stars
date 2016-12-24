@@ -44,7 +44,7 @@ class BrokenAnimation(SheepAnimation):
 
             for i in range(len(on)):
                 hue = self.hues[on[i]]
-                color = [int(c*255) for c in colorsys.hsv_to_rgb(hue, 1.0, 0.4)]
+                color = [int(c*255) for c in colorsys.hsv_to_rgb(hue, 1.0, 0.35)]
                 to_color = [int(c*255) for c in colorsys.hsv_to_rgb(hue, 1.0, 0.03)]
                 self.effects.append(FadeOutEffect.initLimit(self.elements[on[i]], color, to_color,1))    
 

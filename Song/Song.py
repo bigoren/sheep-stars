@@ -98,7 +98,7 @@ class Song(object):
                 elif (animationType == 5):
                         self.show_snake_animation(current_block)
                 elif (animationType == 6):
-                        self.show_borken_animation(current_block)
+                        self.show_broken_animation(current_block)
                 else:
                         self.show_fibonacci_animation(current_block)
                         
@@ -197,15 +197,15 @@ class Song(object):
                         SpinningHeadAnimation(self.bigSheep34, hue, num_of_blocks)]
 
         def show_fibonacci_animation(self, current_block):
-            print "fibonacci"
-            num_of_blocks = self.num_of_blocks(current_block[1], 2)
-            if current_block[2] == 'W':
-                num_of_blocks = self.num_of_blocks(num_of_blocks , 4)
-                
+                print "fibonacci"
+                num_of_blocks = self.num_of_blocks(current_block[1], 2)
+                if current_block[2] == 'W':
+                        num_of_blocks = self.num_of_blocks(num_of_blocks , 4)
+
                 hue1 = random.random()
                 hue2 = hue1
                 hue3 = hue1
-                
+
                 if current_block[2] == 'S':
                     hue2 = Colors.reduce_by_1(hue1+0.111)
                     hue3 = Colors.reduce_by_1(hue1+0.222)
@@ -215,11 +215,11 @@ class Song(object):
                                    FibonacciAnimation(self.bigSheep12, num_of_blocks, hue1),
                                    FibonacciAnimation(self.bigSheep34, num_of_blocks, hue3)]
 
-        def show_borken_animation(self, current_block):
-            print "borken"
-            num_of_blocks = self.num_of_blocks(current_block[1], 1)
-            if current_block[2] == 'W':
-                num_of_blocks = self.num_of_blocks(num_of_blocks , 2)
+        def show_broken_animation(self, current_block):
+                print "borken"
+                num_of_blocks = self.num_of_blocks(current_block[1], 1)
+                if current_block[2] == 'W':
+                        num_of_blocks = self.num_of_blocks(num_of_blocks , 2)
 
                 self.animations = [
                                    BrokenAnimation(self.smallSheep, num_of_blocks, 3),

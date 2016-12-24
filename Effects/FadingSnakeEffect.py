@@ -16,7 +16,6 @@ class FadingSnakeEffect(Effect):
             return
             
         curr_snake_pos = int(time_precent * len(self.indexes))
-        print curr_snake_pos
         
         self.hue_start = self.hue_start + 0.01
         while self.hue_start > 1.0:
