@@ -1,9 +1,20 @@
-import networking_may as networking
-#import networking_amir as networking
 import pygame
+import math
+import random
+
+import networking_may as networking
+
+from Colors import Colors
+
 from UIElements.SmallSheep import SmallSheep
 from UIElements.BigSheep34 import BigSheep34
 from UIElements.BigSheep12 import BigSheep12
+
+from Animations_Sheep.SpinningHeadAnimation import SpinningHeadAnimation
+from Animations_Sheep.SheepConfettiAnimation import SheepConfettiAnimation
+from Animations_Sheep.RainbowAnimation import RainbowAnimation
+from Animations_Sheep.FadeInOutAnimation import FadeInOutAnimation
+from Animations_Sheep.AlternateAnimation import AlternateAnimation
 
 class Song(object):
     
@@ -11,6 +22,11 @@ class Song(object):
                 self.smallSheep = SmallSheep()
                 self.bigSheep12 = BigSheep12()
                 self.bigSheep34 = BigSheep34()
+
+                self.current_block_num = -1;
+                
+                self.animations = []
+                self.plan = []
       
                 self.cycle_num = 0
 
@@ -33,3 +49,119 @@ class Song(object):
                         clock.tick(50)
 
                 cycle_num += 1
+
+        def apply_animations(self, current_time):
+     
+            #calculate current block
+            block_num = -1
+            for i in range(len(self.plan)):
+                block = self.plan[i]
+                start_time = block[0]
+                end_time = block[0] + block[3]
+                if current_time >= start_time and current_time < end_time:
+                    block_num = i
+
+            current_block = self.plan[block_num]
+            if (block_num != self.current_block_num):
+                self.current_block_num = block_num
+                print block_num
+
+                 #new animation
+                if current_block[2] == 'S':
+                        self.weak_animation(current_block[1])
+                else:
+                        self.weak_animation(current_block[1])
+              
+            percent = (current_time - current_block[0]) / current_block[3]
+            for animation in self.animations:
+                animation.apply(percent)
+
+
+        def num_of_blocks(self, original, div):
+                while original % div != 0:
+                        div = div/2
+                return original/div
+        
+        def weak_animation(self, bit):
+                num_of_blocks1 = bit
+                num_of_blocks2 = self.num_of_blocks(num_of_blocks1 , 2)
+                num_of_blocks4 = self.num_of_blocks(num_of_blocks1 , 4)
+                num_of_blocks8 = self.num_of_blocks(num_of_blocks1 , 8)
+
+                color1 = Colors.get_random_color()
+                color2 = Colors.opposite_color(color1)
+
+                typeW = random.randrange(5)
+                        
+                if (typeW == 0):
+                    self.animations = [
+                        SpinningHeadAnimation(self.smallSheep, color1, num_of_blocks4),
+                        SpinningHeadAnimation(self.bigSheep12, color2, num_of_blocks4),
+                        SpinningHeadAnimation(self.bigSheep34, color1, num_of_blocks4)]
+
+                elif (typeW == 1):
+                    self.animations = [
+                        FadeInOutAnimation(self.smallSheep, num_of_blocks4),
+                        FadeInOutAnimation(self.bigSheep12, num_of_blocks4),
+                        FadeInOutAnimation(self.bigSheep34, num_of_blocks4)]
+
+                elif (typeW == 2):
+                    self.animations = [
+                        AlternateAnimation(self.smallSheep, num_of_blocks4),
+                        AlternateAnimation(self.bigSheep12, num_of_blocks4),
+                        AlternateAnimation(self.bigSheep34, num_of_blocks4)]
+
+                elif (typeW == 3):
+                    self.animations = [
+                        SheepConfettiAnimation(self.smallSheep),
+                        SheepConfettiAnimation(self.bigSheep12),
+                        SheepConfettiAnimation(self.bigSheep34)]
+
+                else:
+                    self.animations = [
+                        RainbowAnimation(self.smallSheep, num_of_blocks4),
+                        RainbowAnimation(self.bigSheep12, num_of_blocks4),
+                        RainbowAnimation(self.bigSheep34, num_of_blocks4)]
+
+        def strong_animation(self, bit):
+                num_of_blocks1 = bit
+                num_of_blocks2 = self.num_of_blocks(num_of_blocks1 , 2)
+                num_of_blocks4 = self.num_of_blocks(num_of_blocks1 , 4)
+                num_of_blocks8 = self.num_of_blocks(num_of_blocks1 , 8)
+
+                color1 = Colors.get_random_color()
+                color2 = Colors.opposite_color(color1)
+
+                typeS = random.randrange(5)
+                        
+                if (typeS == 0):
+                    self.animations = [
+                        SpinningHeadAnimation(self.smallSheep, color1, num_of_blocks),
+                        SpinningHeadAnimation(self.bigSheep12, color2, num_of_blocks),
+                        SpinningHeadAnimation(self.bigSheep34, color1, num_of_blocks)]
+
+                elif (typeS == 1):
+                    self.animations = [
+                        FadeInOutAnimation(self.smallSheep, num_of_blocks),
+                        FadeInOutAnimation(self.bigSheep12, num_of_blocks),
+                        FadeInOutAnimation(self.bigSheep34, num_of_blocks)]
+
+                elif (typeS == 2):
+                    self.animations = [
+                        AlternateAnimation(self.smallSheep, num_of_blocks2),
+                        AlternateAnimation(self.bigSheep12, num_of_blocks2),
+                        AlternateAnimation(self.bigSheep34, num_of_blocks2)]
+
+                elif (typeS == 3):
+                    self.animations = [
+                        SheepConfettiAnimation(self.smallSheep),
+                        SheepConfettiAnimation(self.bigSheep12),
+                        SheepConfettiAnimation(self.bigSheep34)]
+
+                else:
+                    self.animations = [
+                        RainbowAnimation(self.smallSheep, num_of_blocks2),
+                        RainbowAnimation(self.bigSheep12, num_of_blocks2),
+                        RainbowAnimation(self.bigSheep34, num_of_blocks2)]
+                    
+
