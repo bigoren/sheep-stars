@@ -7,6 +7,7 @@ from Song.Borealis import Borealis
 from Song.ChristmasDubstep import ChristmasDubstep
 from Song.Dreams import Dreams
 from Song.SweetDreams import SweetDreams
+from Song.NiceDream import NiceDream
 
-song = Dreams()
+song = NiceDream()
 song.play()

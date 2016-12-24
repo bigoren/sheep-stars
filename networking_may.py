@@ -53,7 +53,8 @@ def send(cycle_number,
         sock.sendto(message_s5, (CONTROLER_IP_STARTS, UDP_PORT))
 
 def sendSigns(cycle_number, data):
-        header = array.array('B', 6, (cycle_number / (256 * 256) ) % 256, (cycle_number / 256) % 256, cycle_number % 256])
+
+        header = array.array('B', [6, (cycle_number / (256 * 256) ) % 256, (cycle_number / 256) % 256, cycle_number % 256])
         pixels_data = array.array('B', data)
         message_s0 = (header + pixels_data).tostring()
         sock.sendto(message_s0, (CONTROLLER_IP_SIGNS, UDP_PORT))

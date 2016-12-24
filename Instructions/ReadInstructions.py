@@ -39,5 +39,5 @@ def read_file(file_name):
   
     return instructions
 
-instructions = read_file('Emily Browning - Sweet Dreams.txt')
+instructions = read_file('nice-dream.txt')
 print instructions

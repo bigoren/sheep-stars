@@ -10,6 +10,7 @@ from Song.Borealis import Borealis
 from Song.SweetDreams import SweetDreams
 from Song.DreamOn import DreamOn
 from Song.ChristmasDubstep import ChristmasDubstep
+from Song.NiceDream import NiceDream
 import networking_may as networking
 import random
 import colorsys
@@ -201,6 +202,16 @@ def run(sleep_time=0.5,trans_cycles=60):
             send_signs(1, 1, [0,0,0])
         song = SweetDreams()
         song.play(11)
+        song = NiceDream()
+        song.play()
+        user_answer=transition(sleep_time)
+        if (~user_answer):
+            user_answer=transition(sleep_time)
+        if (user_answer):
+            clap()
+            song = TaPaDa()
+            song.play()
+            send_signs(1, 1, [0,0,0])
         song = DreamOn()
         song.play()
         song = ChristmasDubStep()
