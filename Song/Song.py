@@ -19,7 +19,7 @@ from Animations_Sheep.FadeInOutAnimation import FadeInOutAnimation
 from Animations_Sheep.AlternateAnimation import AlternateAnimation
 from Animations_Sheep.SnakeAnimation import SnakeAnimation
 from Animations_Sheep.FibonacciAnimation import FibonacciAnimation
-
+from Animations_Sheep.BrokenAnimation import BrokenAnimation
 
 class Song(object):
     
@@ -46,8 +46,8 @@ class Song(object):
                 clock = pygame.time.Clock()
                 while pygame.mixer.music.get_busy():
                         song_time = pygame.mixer.music.get_pos()
-                        #song_time = song_time/1000.0
-                        song_time = max(song_time/1000.0 - 0.6, 0)
+                        song_time = song_time/1000.0
+                        #song_time = max(song_time/1000.0 - 0.6, 0)
                         self.apply_animations(song_time)
                         networking.send(cycle_num,
                                         self.smallSheep.get_array(),
@@ -73,15 +73,15 @@ class Song(object):
             if (block_num != self.current_block_num):
                 self.current_block_num = block_num
                 print str(block_num) + " - " + str(current_block)
-                #self.show_random_animation(current_block)
-                self.show_alternate_animation(current_block)
+                self.show_random_animation(current_block)
+                #self.show_fade_in_out_animation(current_block)
               
             percent = (current_time - current_block[0]) / current_block[3]
             for animation in self.animations:
                 animation.apply(percent)
 
         def show_random_animation(self, current_block):
-                animationType = random.randrange(1,7)
+                animationType = random.randrange(1,8)
                         
                 if (animationType == 0):
                         self.show_spinning_head_animation(current_block)
@@ -95,6 +95,8 @@ class Song(object):
                         self.show_rainbow_animation(current_block)
                 elif (animationType == 5):
                         self.show_snake_animation(current_block)
+                elif (animationType == 6):
+                        self.show_borken_animation(current_block)
                 else:
                         self.show_fibonacci_animation(current_block)
                         
@@ -207,4 +209,15 @@ class Song(object):
                                    FibonacciAnimation(self.smallSheep, num_of_blocks, hue2),
                                    FibonacciAnimation(self.bigSheep12, num_of_blocks, hue1),
                                    FibonacciAnimation(self.bigSheep34, num_of_blocks, hue3)]
+
+        def show_borken_animation(self, current_block):
+            print "borken"
+            num_of_blocks = self.num_of_blocks(current_block[1], 1)
+            if current_block[2] == 'W':
+                num_of_blocks = self.num_of_blocks(num_of_blocks , 2)
+
+                self.animations = [
+                                   BrokenAnimation(self.smallSheep, num_of_blocks, 3),
+                                   BrokenAnimation(self.bigSheep12, num_of_blocks, 6),
+                                   BrokenAnimation(self.bigSheep34, num_of_blocks, 6)]
 

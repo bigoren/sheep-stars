@@ -14,13 +14,15 @@ class SmallSheep(Sheep):
         self.earl = range(0,0)
         self.earr = range(0,0)
 
+        self.eye1 = 300
+        self.eye2 = 301
         self.arr = [0,0,0] * 302
 
     def get_array(self):
         return self.arr
     
     def get_all_indexes(self):
-        return self.get_head_indexes() + self.get_body_indexes() + self.get_legs_indexes()
+        return self.get_head_indexes() + self.get_body_indexes() + self.get_legs_indexes() + [self.eye1, self.eye2]
     
     
     # -- Head -- #
@@ -29,19 +31,19 @@ class SmallSheep(Sheep):
         return self.head
 
     def get_ears_indexes(self):
-        return []
+        return [self.eye1, self.eye2]
 
     def get_inner_ear_indexes(self):
-        return []
+        return [self.eye1]
 
     def get_outer_ear_indexes(self):
-        return []
+        return [self.eye2]
 
     def get_inner_ear_connection_index(self):
-        return -1
+        return 45
 
     def get_outer_ear_connection_index(self):
-        return -1
+        return 45
 
 
     # -- Body -- #
