@@ -18,11 +18,11 @@ class FadeInOutAnimation(SheepAnimation):
         if (spin != self.current_spin):
             self.current_spin = spin
             if (spin % 2 == 0):
-                color = [int(c*255) for c in colorsys.hsv_to_rgb(self.hue, 1.0, 0.25)]
+                color = [int(c*255) for c in colorsys.hsv_to_rgb(self.hue, 1.0, 0.15)]
                 self.effects = [FadeOutEffect(self.sheep.get_all_indexes(), color)]
             else:
                 self.hue = Colors.reduce_by_1(self.hue+0.29)
-                color = [int(c*255) for c in colorsys.hsv_to_rgb(self.hue, 1.0, 0.25)]
+                color = [int(c*255) for c in colorsys.hsv_to_rgb(self.hue, 1.0, 0.15)]
                 self.effects = [FadeInEffect(self.sheep.get_all_indexes(), color)]
 
         oneSpinTime = 1.0 / float(self.num_of_spins)

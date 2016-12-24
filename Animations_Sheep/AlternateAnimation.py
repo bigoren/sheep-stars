@@ -35,8 +35,8 @@ class AlternateAnimation(SheepAnimation):
             self.current_spin = spin
             self.hue1 = Colors.reduce_by_1(self.hue1 + 0.4)
             self.hue2 = Colors.reduce_by_1(self.hue1+0.25)
-            self.current_color1 = [int(c*255) for c in colorsys.hsv_to_rgb(self.hue1, 1.0, 0.25)]
-            self.current_color2 = [int(c*255) for c in colorsys.hsv_to_rgb(self.hue2, 1.0, 0.25)]
+            self.current_color1 = [int(c*255) for c in colorsys.hsv_to_rgb(self.hue1, 1.0, 0.15)]
+            self.current_color2 = [int(c*255) for c in colorsys.hsv_to_rgb(self.hue2, 1.0, 0.15)]
             self.create_effects()
 
         oneSpinTime = 1.0 / self.num_of_spins
