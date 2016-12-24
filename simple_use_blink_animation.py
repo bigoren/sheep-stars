@@ -8,7 +8,7 @@ from Song.ChristmasDubstep import ChristmasDubstep
 from Song.Dreams import Dreams
 from Song.SweetDreams import SweetDreams
 
-song = DreamOn()
+song = CloudstructureLasttime()
 song.play()
 
 # fade out - noe fade out
