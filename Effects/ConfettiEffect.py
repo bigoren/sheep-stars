@@ -4,9 +4,9 @@ import colorsys
 import random
 
 class ConfettiEffect(Effect):
-    def __init__(self, indexes, leds_per_cycle):
+    def __init__(self, indexes, leds_percent_per_cycle):
         Effect.__init__(self, indexes)
-        self._leds_per_cycle = leds_per_cycle
+        self._leds_per_cycle = int(leds_percent_per_cycle * len(self.indexes))
         self.hue = 0
     
     def apply(self, time_precent, parent_array):

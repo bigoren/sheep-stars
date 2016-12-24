@@ -2,10 +2,9 @@ from AbstractSheepAnimation import SheepAnimation
 from Effects.ConfettiEffect import ConfettiEffect
 
 class SheepConfettiAnimation(SheepAnimation):
-    def __init__(self, sheep):
+    def __init__(self, sheep, leds_percent_per_cycle):
         SheepAnimation.__init__(self, sheep)
-        self.effects = [ConfettiEffect(self.sheep.get_all_indexes(), 2) ]
+        self.effect = ConfettiEffect(self.sheep.get_all_indexes(), leds_percent_per_cycle)
     
     def apply(self, time_percent):
-        for effect in self.effects:
-            effect.apply(time_percent, self.sheep.get_array())
+        self.effect.apply(time_percent, self.sheep.get_array())
