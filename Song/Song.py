@@ -15,6 +15,7 @@ from Animations_Sheep.SheepConfettiAnimation import SheepConfettiAnimation
 from Animations_Sheep.RainbowAnimation import RainbowAnimation
 from Animations_Sheep.FadeInOutAnimation import FadeInOutAnimation
 from Animations_Sheep.AlternateAnimation import AlternateAnimation
+from Animations_Sheep.SnakeAnimation import SnakeAnimation
 
 class Song(object):
     
@@ -109,6 +110,11 @@ class Song(object):
                 color2 = Colors.opposite_color(color1)
 
                 typeW = random.randrange(5)
+                self.animations = [
+                    SnakeAnimation(self.smallSheep),
+                    SnakeAnimation(self.bigSheep12),
+                    SnakeAnimation(self.bigSheep34)]
+                return
                         
                 if (typeW == 0):
                     self.animations = [
@@ -147,7 +153,13 @@ class Song(object):
                 color2 = Colors.opposite_color(color1)
 
                 typeS = random.randrange(5)
-                        
+
+                self.animations = [
+                    SnakeAnimation(self.smallSheep),
+                    SnakeAnimation(self.bigSheep12),
+                    SnakeAnimation(self.bigSheep34)]
+                return
+                
                 if (typeS == 0):
                     self.animations = [
                         SpinningHeadAnimation(self.smallSheep, color1, num_of_blocks),

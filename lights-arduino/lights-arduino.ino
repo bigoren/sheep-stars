@@ -27,9 +27,9 @@ CRGB leds[NUM_LEDS];
 // Enter a MAC address and IP address for your controller below.
 // The IP address will be dependent on your local network:
 byte mac[] = {
-  0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xC8 //last byte should be the hex of the last byte of the ip address
+  0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0x52 //last byte should be the hex of the last byte of the ip address
 };
-IPAddress ip( 10,0,0,200 );
+IPAddress ip( 10,0,0,82 );
 
 unsigned int localPort = 2000;      // local port to listen on
 
@@ -97,6 +97,7 @@ void loop() {
     Udp.write(ReplyBuffer);
     Udp.endPacket();*/
   }
+  delay(10);
 }
 
 
