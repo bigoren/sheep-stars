@@ -38,6 +38,8 @@ def send(cycle_number,
         pixels_data = array.array('B', big_sheep34_data[900:1800])
         message_s4 = (header + pixels_data).tostring()
 
+        for i in range(300):
+                stars_data[i*3 : i*3+2] = stars_data[i*3:i*3+2][::-1]  
         header = array.array('B', [5, (cycle_number / (256 * 256) ) % 256, (cycle_number / 256) % 256, cycle_number % 256])
         pixels_data = array.array('B', stars_data[0:900])
         message_s5 = (header + pixels_data).tostring()
