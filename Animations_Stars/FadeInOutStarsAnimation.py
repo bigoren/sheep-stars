@@ -9,11 +9,10 @@ from Effects.StarShineEffect import StarShineEffect
 
 class FadeInOutStarsAnimation(AbstractStarsAnimation):
 
-    def __init__(self, stars, num_of_spins, starting_hue):
+    def __init__(self, stars, num_of_spins):
         AbstractStarsAnimation.__init__(self, stars)
         self.num_of_spins = num_of_spins / 2
         self.current_spin = -1
-        self.hue = starting_hue
         self.stars_to_apply = []
     
     def apply(self, time_percent):

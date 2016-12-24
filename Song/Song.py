@@ -140,7 +140,8 @@ class Song(object):
                 self.animations = [
                         AlternateAnimation(self.smallSheep, num_of_blocks, hue2),
                         AlternateAnimation(self.bigSheep12, num_of_blocks, hue1),
-                        AlternateAnimation(self.bigSheep34, num_of_blocks, hue3)]
+                        AlternateAnimation(self.bigSheep34, num_of_blocks, hue3),
+                        FadeInOutStarsAnimation(self.stars, num_of_blocks)]
 
         def show_fade_in_out_animation(self, current_block):
                 print "fade_in_out"
@@ -162,7 +163,7 @@ class Song(object):
                         FadeInOutAnimation(self.smallSheep, num_of_blocks, hue2),
                         FadeInOutAnimation(self.bigSheep12, num_of_blocks, hue1),
                         FadeInOutAnimation(self.bigSheep34, num_of_blocks, hue3),
-                        FadeInOutStarsAnimation(self.stars, num_of_blocks, hue4)]
+                        FadeInOutStarsAnimation(self.stars, num_of_blocks)]
 
         def show_sheep_confetti_animation(self, current_block):
                 print "confetti"
@@ -173,7 +174,8 @@ class Song(object):
                 self.animations = [
                         SheepConfettiAnimation(self.smallSheep, leds_percent_per_cycle),
                         SheepConfettiAnimation(self.bigSheep12, leds_percent_per_cycle),
-                        SheepConfettiAnimation(self.bigSheep34, leds_percent_per_cycle)]
+                        SheepConfettiAnimation(self.bigSheep34, leds_percent_per_cycle),
+                        FadeInOutStarsAnimation(self.stars, num_of_blocks)]
 
         def show_rainbow_animation(self, current_block):
                 print "rainbow"
@@ -184,7 +186,8 @@ class Song(object):
                 self.animations = [
                         RainbowAnimation(self.smallSheep, num_of_blocks),
                         RainbowAnimation(self.bigSheep12, num_of_blocks),
-                        RainbowAnimation(self.bigSheep34, num_of_blocks)]
+                        RainbowAnimation(self.bigSheep34, num_of_blocks),
+                        FadeInOutStarsAnimation(self.stars, num_of_blocks)]
 
         def show_snake_animation(self, current_block):
                 print "snake"
@@ -195,7 +198,8 @@ class Song(object):
                 self.animations = [
                         SnakeAnimation(self.smallSheep, num_of_blocks),
                         SnakeAnimation(self.bigSheep12, num_of_blocks),
-                        SnakeAnimation(self.bigSheep34, num_of_blocks)]
+                        SnakeAnimation(self.bigSheep34, num_of_blocks),
+                        FadeInOutStarsAnimation(self.stars, num_of_blocks)]
 
         def show_spinning_head_animation(self, current_block):
                 print "spinning_head"
@@ -208,7 +212,8 @@ class Song(object):
                 self.animations = [
                         SpinningHeadAnimation(self.smallSheep, hue, num_of_blocks),
                         SpinningHeadAnimation(self.bigSheep12, hue, num_of_blocks),
-                        SpinningHeadAnimation(self.bigSheep34, hue, num_of_blocks)]
+                        SpinningHeadAnimation(self.bigSheep34, hue, num_of_blocks),
+                        FadeInOutStarsAnimation(self.stars, num_of_blocks)]
 
         def show_fibonacci_animation(self, current_block):
                 print "fibonacci"
@@ -227,7 +232,8 @@ class Song(object):
                 self.animations = [
                                    FibonacciAnimation(self.smallSheep, num_of_blocks, hue2),
                                    FibonacciAnimation(self.bigSheep12, num_of_blocks, hue1),
-                                   FibonacciAnimation(self.bigSheep34, num_of_blocks, hue3)]
+                                   FibonacciAnimation(self.bigSheep34, num_of_blocks, hue3),
+                                   FadeInOutStarsAnimation(self.stars, num_of_blocks)]
 
         def show_broken_animation(self, current_block):
                 print "broken"
@@ -238,5 +244,6 @@ class Song(object):
                 self.animations = [
                                    BrokenAnimation(self.smallSheep, num_of_blocks, 3),
                                    BrokenAnimation(self.bigSheep12, num_of_blocks, 6),
-                                   BrokenAnimation(self.bigSheep34, num_of_blocks, 6)]
+                                   BrokenAnimation(self.bigSheep34, num_of_blocks, 6),
+                                   FadeInOutStarsAnimation(self.stars, num_of_blocks)]
 
