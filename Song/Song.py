@@ -84,7 +84,7 @@ class Song(object):
 
             if (block_num == len(self.plan)-1):
                     # fade out - end of the song
-                    power = float(min(1-percent*2,0))
+                    power = float(max(1-percent*2,0))
                     print "fade_out " + str(power)
                     data = self.smallSheep.get_array() + self.bigSheep12.get_array() + self.bigSheep34.get_array() + self.stars.get_array()
                     for i in range(len(self.smallSheep.get_array())):
