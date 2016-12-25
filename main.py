@@ -197,7 +197,7 @@ def run(sleep_time=0.5,trans_cycles=60):
             user_answer=transition(sleep_time,trans_cycles)
         if (user_answer):
             clap()
-            song = ChristmasDubStep()
+            song = ChristmasDubstep()
             song.play()
             send_signs(1, 1, [0,0,0])
         song = SweetDreams()
@@ -214,7 +214,7 @@ def run(sleep_time=0.5,trans_cycles=60):
             send_signs(1, 1, [0,0,0])
         song = DreamOn()
         song.play()
-        song = ChristmasDubStep()
+        song = ChristmasDubstep()
         song.play()
 
         
