@@ -18,7 +18,7 @@
 #include <EthernetUdp.h>         // UDP library from: bjoern@cs.stanford.edu 12/30/2008
 
 #include <FastLED.h>
-#define NUM_LEDS 300
+#define NUM_LEDS 150
 #define PACKET_SIZE (NUM_LEDS * 3 + 4)
 #define DATA_PIN 6
 
@@ -27,7 +27,7 @@ CRGB leds[NUM_LEDS];
 // Enter a MAC address and IP address for your controller below.
 // The IP address will be dependent on your local network:
 byte mac[] = {
-  0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0x52 //last byte should be the hex of the last byte of the ip address
+  0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0x82 //last byte should be the hex of the last byte of the ip address
 };
 IPAddress ip( 10,0,0,82 );
 
@@ -80,7 +80,7 @@ void loop() {
 
     char universe;
     Udp.read(&universe, 1);
-    if(universe == 5)
+    if(universe == 6)
     {
       char frameNum[3];
       Udp.read((char *)frameNum, 3);

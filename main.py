@@ -37,11 +37,13 @@ GPIO.setup(27, GPIO.OUT)
 
 def lit_button1():
     GPIO.output(4, GPIO.HIGH)
+    
 def lit_button2():
     GPIO.output(27, GPIO.HIGH)
-
+    
 def unlit_button1():
     GPIO.output(4, GPIO.LOW)
+
 def unlit_button2():    
     GPIO.output(27, GPIO.LOW)
 
@@ -54,15 +56,11 @@ def button2_is():
 def send_signs(on1, on2, color):
     data1 = [0,0,0] * 75
     data2 = [0,0,0] * 75
-    data3 = [0,0,0] * 75
-    data4 = [0,0,0] * 75
     if (on1):
         data1 = color *75
-        data3 = color *75
     if (on2):
         data2 = color *75
-        data4 = color *75
-    networking.sendSigns(0, data1+data2+data3+data4)
+    networking.sendSigns(0, data1+data2)
     
 def animate_sheeps_sound(trans_cycles):
     smallSheep = SmallSheep()

@@ -7,7 +7,7 @@ CONTROLER_IP_SMALL_SHEEP_0 = "10.0.0.220"
 CONTROLER_IP_BIG_SHEEP_12 = "10.0.0.210"
 CONTROLER_IP_BIG_SHEEP_34 = "10.0.0.211"
 CONTROLER_IP_STARTS = "10.0.0.84"
-CONTROLLER_IP_SIGNS = ""
+CONTROLER_IP_SIGNS = "10.0.0.82"
 UDP_PORT = 2000
 
 sock = socket.socket(socket.AF_INET, # Internet
@@ -57,7 +57,7 @@ def sendSigns(cycle_number, data):
         header = array.array('B', [6, (cycle_number / (256 * 256) ) % 256, (cycle_number / 256) % 256, cycle_number % 256])
         pixels_data = array.array('B', data)
         message_s0 = (header + pixels_data).tostring()
-        sock.sendto(message_s0, (CONTROLLER_IP_SIGNS, UDP_PORT))
+        sock.sendto(message_s0, (CONTROLER_IP_SIGNS, UDP_PORT))
         
 
 
