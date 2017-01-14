@@ -9,6 +9,7 @@ from Colors import Colors
 from UIElements.SmallSheep import SmallSheep
 from UIElements.BigSheep12 import BigSheep12
 from UIElements.BigSheep34 import BigSheep34
+from UIElements.Signs import Signs
 
 from Animations_Sheep.SpinningHeadAnimation import SpinningHeadAnimation
 from Animations_Sheep.SheepConfettiAnimation import SheepConfettiAnimation
@@ -19,6 +20,12 @@ from Animations_Sheep.SnakeAnimation import SnakeAnimation
 from Animations_Sheep.FibonacciAnimation import FibonacciAnimation
 from Animations_Sheep.BrokenAnimation import BrokenAnimation
 
+from Animations_Stars.BrokenSignsAnimation import BrokenSignsAnimation
+from Animations_Stars.AlwaysOnSignsAnimation import AlwaysOnSignsAnimation
+from Animations_Stars.SignsConfettiAnimation import SignsConfettiAnimation
+from Animations_Stars.FadeInOutSignsAnimation import FadeInOutSignsAnimation
+from Animations_Stars.AlternateSignsAnimation import AlternateSignsAnimation
+from Animations_Stars.RainbowSignsAnimation import RainbowSignsAnimation
 
 ########################################################
 # consts & current loop data
@@ -29,10 +36,10 @@ FRAMES_IN_SEC = 50
 MAX_DURATION = 1
 MIN_DURATION = 0.1
 DIFF_DURATION = 0.1
-NUM_OF_BITS = 8
+NUM_OF_BITS = 32
 
 current_frame = 0
-duration = 0.6
+duration = 0.4
 animations = []
 
 faster = False
@@ -41,6 +48,7 @@ slower = True
 smallSheep = SmallSheep()
 bigSheep12 = BigSheep12()
 bigSheep34 = BigSheep34()
+signs = Signs()
 
 ########################################################
 # button defs
@@ -131,13 +139,15 @@ def num_of_blocks(self, original, div):
 def show_alternate_animation():
         print "alternate"
         hue1 = random.random()
-        hue2 = Colors.reduce_by_1(hue1 + 0.333)
-        hue3 = Colors.reduce_by_1(hue1 + 0.666)
+        hue2 = Colors.reduce_by_1(hue1 + 0.25)
+        hue3 = Colors.reduce_by_1(hue1 + 0.5)
+        hue4 = Colors.reduce_by_1(hue1 + 0.75)
 
         global animations
         animations = [AlternateAnimation(smallSheep, NUM_OF_BITS / 4, hue2),
                       AlternateAnimation(bigSheep12, NUM_OF_BITS / 4, hue1),
-                      AlternateAnimation(bigSheep34, NUM_OF_BITS / 4, hue3)]
+                      AlternateAnimation(bigSheep34, NUM_OF_BITS / 4, hue3), 
+                      AlternateSignsAnimation(signs, NUM_OF_BITS / 4, hue4)]
 
 
 def show_fade_in_out_animation():
@@ -145,21 +155,28 @@ def show_fade_in_out_animation():
         hue1 = random.random()
         hue2 = Colors.reduce_by_1(hue1 + 0.111)
         hue3 = Colors.reduce_by_1(hue1 + 0.222)
+        hue4 = Colors.reduce_by_1(hue1 + 0.333)
 
         global animations
         animations = [FadeInOutAnimation(smallSheep, NUM_OF_BITS / 2, hue2),
                       FadeInOutAnimation(bigSheep12, NUM_OF_BITS / 2, hue1),
-                      FadeInOutAnimation(bigSheep34, NUM_OF_BITS / 2, hue3)]
+                      FadeInOutAnimation(bigSheep34, NUM_OF_BITS / 2, hue3),
+                      FadeInOutSignsAnimation(signs, NUM_OF_BITS / 2, hue4)]
 
 
 def show_sheep_confetti_animation():
         print "confetti"
-        leds_per_cycle = 0.02
+        max_leds_per_cycle = 0.05
+        min_leds_per_cycle = 0.005
+        diff_in_leds = DIFF_DURATION * (max_leds_per_cycle - min_leds_per_cycle) / (MAX_DURATION - MIN_DURATION)
+        current_diff = int((MAX_DURATION - duration) / DIFF_DURATION)
+        leds_per_cycle = min_leds_per_cycle + diff_in_leds * current_diff
 
         global animations
         animations = [SheepConfettiAnimation(smallSheep, leds_per_cycle),
                       SheepConfettiAnimation(bigSheep12, leds_per_cycle),
-                      SheepConfettiAnimation(bigSheep34, leds_per_cycle)]
+                      SheepConfettiAnimation(bigSheep34, leds_per_cycle),
+                      SignsConfettiAnimation(signs, leds_per_cycle)]
 
 
 def show_rainbow_animation():
@@ -167,7 +184,8 @@ def show_rainbow_animation():
         global animations
         animations = [RainbowAnimation(smallSheep, NUM_OF_BITS / 4),
                       RainbowAnimation(bigSheep12, NUM_OF_BITS / 4),
-                      RainbowAnimation(bigSheep34, NUM_OF_BITS / 4)]
+                      RainbowAnimation(bigSheep34, NUM_OF_BITS / 4),
+                      RainbowSignsAnimation (signs, NUM_OF_BITS / 4)]
 
 
 def show_snake_animation():
@@ -175,7 +193,8 @@ def show_snake_animation():
         global animations
         animations = [SnakeAnimation(smallSheep, NUM_OF_BITS / 4),
                       SnakeAnimation(bigSheep12, NUM_OF_BITS / 4),
-                      SnakeAnimation(bigSheep34, NUM_OF_BITS / 4)]
+                      SnakeAnimation(bigSheep34, NUM_OF_BITS / 4),
+                      SignsConfettiAnimation(signs, 1)]
 
 
 def show_spinning_head_animation():
@@ -197,7 +216,8 @@ def show_fibonacci_animation():
         global animations
         animations = [FibonacciAnimation(smallSheep, NUM_OF_BITS / 8, hue2),
                       FibonacciAnimation(bigSheep12, NUM_OF_BITS / 8, hue1),
-                      FibonacciAnimation(bigSheep34, NUM_OF_BITS / 8, hue3)]
+                      FibonacciAnimation(bigSheep34, NUM_OF_BITS / 8, hue3),
+                      AlwaysOnSignsAnimation(signs, [30, 30, 30])]
 
 
 def show_broken_animation():
@@ -206,7 +226,8 @@ def show_broken_animation():
         global animations
         animations = [BrokenAnimation(smallSheep, NUM_OF_BITS / 2, 3),
                       BrokenAnimation(bigSheep12, NUM_OF_BITS / 2, 6),
-                      BrokenAnimation(bigSheep34, NUM_OF_BITS / 2, 6)]
+                      BrokenAnimation(bigSheep34, NUM_OF_BITS / 2, 6),
+                      BrokenSignsAnimation(signs, NUM_OF_BITS / 2, 3)]
 
 
 ########################################################
@@ -245,7 +266,8 @@ while True:
     networking.send(current_frame,
                     smallSheep.get_array(),
                     bigSheep12.get_array(),
-                    bigSheep34.get_array())
+                    bigSheep34.get_array(),
+                    signs.get_array())
 
     # light buttons
     slow_on = math.floor(current_frame / float(SLOW_BUTTON_FRAMES)) % 2 == 0
