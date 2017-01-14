@@ -47,8 +47,8 @@ bigSheep34 = BigSheep34()
 ########################################################
 
 # must divide 5 * NUM_OF_BITS
-SLOW_BUTTON_FRAMES = 20
-FAST_BUTTON_FRAMES = 80
+SLOW_BUTTON_FRAMES = 16
+FAST_BUTTON_FRAMES = 8
 
 GPIO.cleanup()
 GPIO.setmode(GPIO.BCM)
@@ -78,12 +78,12 @@ def unlit_button2():
     return
 
 
-def btn1_clicked():
+def btn1_clicked(arg):
     global faster
     faster = True
 
 
-def btn2_clicked():
+def btn2_clicked(arg):
     global slower
     slower = True
 
@@ -248,15 +248,15 @@ while True:
                     bigSheep34.get_array())
 
     # light buttons
-    slow_on = math.floor(current_frame / SLOW_BUTTON_FRAMES) % 2 == 0
+    slow_on = math.floor(current_frame / float(SLOW_BUTTON_FRAMES)) % 2 == 0
     if slow_on:
-        lit_button1()
-    else:
-        unlit_button1()
-    fast_on = math.floor(current_frame / FAST_BUTTON_FRAMES) % 2 == 0
-    if fast_on:
         lit_button2()
     else:
         unlit_button2()
+    fast_on = math.floor(current_frame / float(FAST_BUTTON_FRAMES)) % 2 == 0
+    if fast_on:
+        lit_button1()
+    else:
+        unlit_button1()
 
-    sleep(1.0 / FRAMES_IN_SEC)  # 50 frames in seconds
+    sleep(0.02)  # 50 frames in seconds
