@@ -54,9 +54,9 @@ def run(sleep_time=0.5):
             if button2_is():    
                 print "button 2 pushed! "
             if (button1_is() and button2_is()):
-                print "Double PUSH!"
-                unlit_button()
                 delay_cycles = 50
+                print "Double PUSH! Disable buttons for "+str(delay_cycles*sleep_time)
+                unlit_button()
 
         else:
             delay_cycles = delay_cycles - 1
@@ -66,5 +66,5 @@ def run(sleep_time=0.5):
 # start the app
 ########################################################
 
-run(0.3)
+run(0.5)
 
