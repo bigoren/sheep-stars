@@ -10,7 +10,8 @@ from Colors import Colors
 from UIElements.SmallSheep import SmallSheep
 from UIElements.BigSheep34 import BigSheep34
 from UIElements.BigSheep12 import BigSheep12
-from UIElements.Stars import Stars
+from UIElements.Signs import Signs
+from UIElements.Flower import Flower
 
 from Animations_Sheep.SpinningHeadAnimation import SpinningHeadAnimation
 from Animations_Sheep.SheepConfettiAnimation import SheepConfettiAnimation
@@ -21,7 +22,22 @@ from Animations_Sheep.SnakeAnimation import SnakeAnimation
 from Animations_Sheep.FibonacciAnimation import FibonacciAnimation
 from Animations_Sheep.BrokenAnimation import BrokenAnimation
 
-from Animations_Stars.FadeInOutStarsAnimation import FadeInOutStarsAnimation
+from Animations_Stars.AlternateSignsAnimation import AlternateSignsAnimation
+from Animations_Stars.AlwaysOnSignsAnimation import AlwaysOnSignsAnimation
+from Animations_Stars.BrokenSignsAnimation import BrokenSignsAnimation
+from Animations_Stars.SignsConfettiAnimation import SignsConfettiAnimation
+from Animations_Stars.FadeInOutSignsAnimation import FadeInOutSignsAnimation
+from Animations_Stars.RainbowSignsAnimation import RainbowSignsAnimation
+
+from Animations_Stars.AlternateFlowerAnimation import AlternateFlowerAnimation
+from Animations_Stars.AlwaysOnFlowerAnimation import AlwaysOnFlowerAnimation
+from Animations_Stars.BrokenFlowerAnimation import BrokenFlowerAnimation
+from Animations_Stars.ConfettiFlowerAnimation import ConfettiFlowerAnimation
+from Animations_Stars.FadeInOutFlowerAnimation import FadeInOutFlowerAnimation
+from Animations_Stars.RainbowFlowerAnimation import RainbowFlowerAnimation
+from Animations_Stars.FibonacciFlowerAnimation import FibonacciFlowerAnimation
+from Animations_Stars.SnakeFlowerAnimation import SnakeFlowerAnimation
+
 
 class Song(object):
     
@@ -29,7 +45,8 @@ class Song(object):
                 self.smallSheep = SmallSheep()
                 self.bigSheep12 = BigSheep12()
                 self.bigSheep34 = BigSheep34()
-                self.stars = Stars()
+                self.signs = Signs()
+                self.flower = Flower()
 
                 self.current_block_num = -1;
                 
@@ -55,7 +72,8 @@ class Song(object):
                                         self.smallSheep.get_array(),
                                         self.bigSheep12.get_array(),
                                         self.bigSheep34.get_array(),
-                                        self.stars.get_array())
+                                        self.signs.get_array(),
+                                        self.flower.get_array())
                         clock.tick(50)
 
                 cycle_num += 1
@@ -86,19 +104,20 @@ class Song(object):
                     # fade out - end of the song
                     power = float(max(1-percent*2,0))
                     print "fade_out " + str(power)
-                    data = self.smallSheep.get_array() + self.bigSheep12.get_array() + self.bigSheep34.get_array() + self.stars.get_array()
+                    data = self.smallSheep.get_array() + self.bigSheep12.get_array() + self.bigSheep34.get_array() + self.signs.get_array() + self.flower.get_array()
                     for i in range(len(self.smallSheep.get_array())):
                         self.smallSheep.get_array()[i] = int(math.floor(self.smallSheep.get_array()[i] * power))
                     for i in range(len(self.bigSheep12.get_array())):
                         self.bigSheep12.get_array()[i] = int(math.floor(self.bigSheep12.get_array()[i] * power))
                     for i in range(len(self.bigSheep34.get_array())):
                         self.bigSheep34.get_array()[i] = int(math.floor(self.bigSheep34.get_array()[i] * power))
-                    for i in range(len(self.stars.get_array())):
-                        self.stars.get_array()[i] = int(math.floor(self.stars.get_array()[i] * power))
+                    for i in range(len(self.signs.get_array())):
+                        self.signs.get_array()[i] = int(math.floor(self.signs.get_array()[i] * power))
+                    for i in range(len(self.flower.get_array())):
+                        self.flower.get_array()[i] = int(math.floor(self.flower.get_array()[i] * power))
 
         def show_random_animation(self, current_block):
                 animationType = random.randrange(1,8)
-                        
                 if (animationType == 0):
                         self.show_spinning_head_animation(current_block)
                 elif (animationType == 1):
@@ -141,7 +160,8 @@ class Song(object):
                         AlternateAnimation(self.smallSheep, num_of_blocks, hue2),
                         AlternateAnimation(self.bigSheep12, num_of_blocks, hue1),
                         AlternateAnimation(self.bigSheep34, num_of_blocks, hue3),
-                        FadeInOutStarsAnimation(self.stars, num_of_blocks)]
+                        AlternateSignsAnimation(self.signs, num_of_blocks, hue2),
+                        AlternateFlowerAnimation(self.flower, num_of_blocks, hue2)]
 
         def show_fade_in_out_animation(self, current_block):
                 print "fade_in_out"
@@ -163,7 +183,8 @@ class Song(object):
                         FadeInOutAnimation(self.smallSheep, num_of_blocks, hue2),
                         FadeInOutAnimation(self.bigSheep12, num_of_blocks, hue1),
                         FadeInOutAnimation(self.bigSheep34, num_of_blocks, hue3),
-                        FadeInOutStarsAnimation(self.stars, num_of_blocks)]
+                        FadeInOutSignsAnimation(self.signs, num_of_blocks, hue2),
+                        FadeInOutFlowerAnimation(self.flower, num_of_blocks, hue2)]
 
         def show_sheep_confetti_animation(self, current_block):
                 print "confetti"
@@ -175,7 +196,8 @@ class Song(object):
                         SheepConfettiAnimation(self.smallSheep, leds_percent_per_cycle),
                         SheepConfettiAnimation(self.bigSheep12, leds_percent_per_cycle),
                         SheepConfettiAnimation(self.bigSheep34, leds_percent_per_cycle),
-                        FadeInOutStarsAnimation(self.stars, current_block[1])]
+                        SignsConfettiAnimation(self.signs, leds_percent_per_cycle * 2),
+                        ConfettiFlowerAnimation(self.flower, leds_percent_per_cycle)]
 
         def show_rainbow_animation(self, current_block):
                 print "rainbow"
@@ -187,7 +209,8 @@ class Song(object):
                         RainbowAnimation(self.smallSheep, num_of_blocks),
                         RainbowAnimation(self.bigSheep12, num_of_blocks),
                         RainbowAnimation(self.bigSheep34, num_of_blocks),
-                        FadeInOutStarsAnimation(self.stars, num_of_blocks)]
+                        RainbowSignsAnimation(self.signs, num_of_blocks),
+                        RainbowFlowerAnimation(self.flower, num_of_blocks)]
 
         def show_snake_animation(self, current_block):
                 print "snake"
@@ -199,7 +222,8 @@ class Song(object):
                         SnakeAnimation(self.smallSheep, num_of_blocks),
                         SnakeAnimation(self.bigSheep12, num_of_blocks),
                         SnakeAnimation(self.bigSheep34, num_of_blocks),
-                        FadeInOutStarsAnimation(self.stars, num_of_blocks)]
+                        SignsConfettiAnimation(self.signs, 0.1),
+                        SnakeFlowerAnimation(self.flower, num_of_blocks)]
 
         def show_spinning_head_animation(self, current_block):
                 print "spinning_head"
@@ -233,7 +257,8 @@ class Song(object):
                                    FibonacciAnimation(self.smallSheep, num_of_blocks, hue2),
                                    FibonacciAnimation(self.bigSheep12, num_of_blocks, hue1),
                                    FibonacciAnimation(self.bigSheep34, num_of_blocks, hue3),
-                                   FadeInOutStarsAnimation(self.stars, num_of_blocks)]
+                                   AlwaysOnSignsAnimation(self.signs, [30, 30, 30]),
+                                   FibonacciFlowerAnimation(self.flower, num_of_blocks, hue2)]
 
         def show_broken_animation(self, current_block):
                 print "broken"
@@ -245,5 +270,6 @@ class Song(object):
                                    BrokenAnimation(self.smallSheep, num_of_blocks, 3),
                                    BrokenAnimation(self.bigSheep12, num_of_blocks, 6),
                                    BrokenAnimation(self.bigSheep34, num_of_blocks, 6),
-                                   FadeInOutStarsAnimation(self.stars, num_of_blocks)]
+                                   BrokenSignsAnimation(self.signs, num_of_blocks, 3),
+                                   BrokenFlowerAnimation(self.flower, num_of_blocks, 2)]
 

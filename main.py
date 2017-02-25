@@ -1,4 +1,4 @@
-import RPi.GPIO as GPIO
+#import RPi.GPIO as GPIO
 from time import sleep
 import pygame
 from Song.Dreams import Dreams
@@ -18,40 +18,47 @@ import colorsys
 from UIElements.SmallSheep import SmallSheep
 from UIElements.BigSheep12 import BigSheep12
 from UIElements.BigSheep34 import BigSheep34
-from UIElements.Stars import Stars
+from UIElements.Signs import Signs
+from UIElements.Flower import Flower
 
 ########################################################
 # setup GPIO
 ########################################################
 
-GPIO.cleanup()
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(17, GPIO.IN, GPIO.PUD_DOWN)
-GPIO.setup(22, GPIO.IN, GPIO.PUD_DOWN)
-GPIO.setup(4, GPIO.OUT)
-GPIO.setup(27, GPIO.OUT)
+#GPIO.cleanup()
+#GPIO.setmode(GPIO.BCM)
+#GPIO.setup(17, GPIO.IN, GPIO.PUD_DOWN)
+#GPIO.setup(22, GPIO.IN, GPIO.PUD_DOWN)
+#GPIO.setup(4, GPIO.OUT)
+#GPIO.setup(27, GPIO.OUT)
 
 ########################################################
 # button defs
 ########################################################
 
 def lit_button1():
-    GPIO.output(4, GPIO.HIGH)
+#    GPIO.output(4, GPIO.HIGH)
+    return
     
 def lit_button2():
-    GPIO.output(27, GPIO.HIGH)
+#    GPIO.output(27, GPIO.HIGH)
+    return
     
 def unlit_button1():
-    GPIO.output(4, GPIO.LOW)
+#    GPIO.output(4, GPIO.LOW)
+    return
 
 def unlit_button2():    
-    GPIO.output(27, GPIO.LOW)
+#    GPIO.output(27, GPIO.LOW)
+    return
 
 def button1_is():
-    return GPIO.input(17)
+#    return GPIO.input(17)
+    return
 
 def button2_is():
-    return GPIO.input(22)
+#    return GPIO.input(22)
+    return
 
 def send_signs(on1, on2, color):
     data1 = [0,0,0] * 75
@@ -76,10 +83,20 @@ def animate_sheeps_sound(trans_cycles):
     bigSheep34Arr = [0] * len(bigSheep34.get_array())
     for i in range(len(bigSheep34.get_all_indexes())):
         bigSheep34Arr[bigSheep34.get_all_indexes()[i]*3 : bigSheep34.get_all_indexes()[i]*3+3] = [5,5,5]
-    stars = Stars()
-    starsArr = [1] * len(stars.get_array())
+    
+    signs = Signs()
+    signsArr = [0] * len(signs.get_array())
+    for i in range(len(signs.get_all_indexes())):
+        signsArr[signs.get_all_indexes()[i]*3 : signs.get_all_indexes()[i]*3+3] = [5,5,5]
 
-    networking.send(trans_cycles,smallSheepArr,bigSheep12Arr,bigSheep34Arr,starsArr)
+    flower = Flower()
+    flowerArr = [0] * len(flower.get_array())
+    for i in range(len(flower.get_all_indexes())):
+        flowerArr[flower.get_all_indexes()[i]*3 : flower.get_all_indexes()[i]*3+3] = [10,0,0]
+    for i in range(len(flower.get_seeds())):
+        flowerArr[flower.get_seeds()[i]*3 : flower.get_seeds()[i]*3+3] = [15,15,0]
+
+    networking.send(trans_cycles,smallSheepArr,bigSheep12Arr,bigSheep34Arr,signsArr,flowerArr)
 
 def transition(cycle_time=0.5,trans_cycles=60):
     print "buttons are on waiting for press"
@@ -138,83 +155,23 @@ def sheep():
         
 def run(sleep_time=0.5,trans_cycles=60):
     while 1:
-        song = Dreams()
+
+        song = ChristmasDubstep()
         song.play()
         user_answer=transition(sleep_time,trans_cycles)
-        if (~user_answer):
-            user_answer=transition(sleep_time,trans_cycles)
-        if (user_answer):
-            clap()
-            song = SweetDreams()
-            song.play()
-            send_signs(1, 1, [0,0,0])
+
+        song = DreamOn()
+        song.play()
+        user_answer=transition(sleep_time,trans_cycles)
+
         song = FroggyWoogie()
         song.play()
         user_answer=transition(sleep_time,trans_cycles)
-        if (~user_answer):
-            user_answer=transition(sleep_time,trans_cycles)
-        if (user_answer):
-            clap()
-            song = DreamOn()
-            song.play()
-            send_signs(1, 1, [0,0,0])
-        song = ChronosThought()
-        song.play()
-        user_answer=transition(sleep_time,trans_cycles)
-        if (~user_answer):
-            user_answer=transition(sleep_time,trans_cycles)
-        if (user_answer):
-            clap()
-            song = ChristmasDubstep()
-            song.play()
-            send_signs(1, 1, [0,0,0])
-        song = CloudstructureLasttime()
-        song.play()
-        user_answer=transition(sleep_time,trans_cycles)
-        if (~user_answer):
-            user_answer=transition(sleep_time,trans_cycles)
-        if (user_answer):
-            clap()
-            song = SweetDreams()
-            song.play()
-            send_signs(1, 1, [0,0,0])
-        song = TaPaDa()
-        song.play()
-        user_answer=transition(sleep_time,trans_cycles)
-        if (~user_answer):
-            user_answer=transition(sleep_time,trans_cycles)
-        if (user_answer):
-            clap()
-            song = DreamOn()
-            song.play()
-            send_signs(1, 1, [0,0,0])
-        song = Borealis()
-        song.play()
-        user_answer=transition(sleep_time,trans_cycles)
-        if (~user_answer):
-            user_answer=transition(sleep_time,trans_cycles)
-        if (user_answer):
-            clap()
-            song = ChristmasDubstep()
-            song.play()
-            send_signs(1, 1, [0,0,0])
+
         song = SweetDreams()
         song.play()
-        song = NiceDream()
-        song.play()
         user_answer=transition(sleep_time,trans_cycles)
-        if (~user_answer):
-            user_answer=transition(sleep_time,trans_cycles)
-        if (user_answer):
-            clap()
-            song = TaPaDa()
-            song.play()
-            send_signs(1, 1, [0,0,0])
-        song = DreamOn()
-        song.play()
-        song = ChristmasDubstep()
-        song.play()
-
+    
         
 ########################################################
 # start the app

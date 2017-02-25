@@ -13,7 +13,8 @@ def send(cycle_number,
          small_sheep0_data,
          big_sheep12_data,
          big_sheep34_data,
-         signs):
+         signs,
+         flower):
 
         header = array.array('B', [0, (cycle_number / (256 * 256) ) % 256, (cycle_number / 256) % 256, cycle_number % 256])
         pixels_data = array.array('B', big_sheep12_data[0:900])
@@ -39,6 +40,18 @@ def send(cycle_number,
         pixels_data = array.array('B', small_sheep0_data)
         message_s5 = (header + pixels_data).tostring()
 
+        header = array.array('B', [6, (cycle_number / (256 * 256) ) % 256, (cycle_number / 256) % 256, cycle_number % 256])
+        pixels_data = array.array('B', flower[0:900])
+        message_s6 = (header + pixels_data).tostring()
+
+        header = array.array('B', [7, (cycle_number / (256 * 256) ) % 256, (cycle_number / 256) % 256, cycle_number % 256])
+        pixels_data = array.array('B', flower[900:1050])
+        for i in range(50):
+            temp = pixels_data[i*3]
+            pixels_data[i*3] = pixels_data[i*3+1]
+            pixels_data[i*3 + 1] = temp
+        message_s7 = (header + pixels_data).tostring()
+
 
         sock.sendto(message_s0, (CONTROLER_IP, UDP_PORT))
         sock.sendto(message_s1, (CONTROLER_IP, UDP_PORT))
@@ -46,7 +59,8 @@ def send(cycle_number,
         sock.sendto(message_s3, (CONTROLER_IP, UDP_PORT))
         sock.sendto(message_s4, (CONTROLER_IP, UDP_PORT))
         sock.sendto(message_s5, (CONTROLER_IP, UDP_PORT))
-
+        sock.sendto(message_s6, (CONTROLER_IP, UDP_PORT))
+        sock.sendto(message_s7, (CONTROLER_IP, UDP_PORT))
 
 def sendSigns(cycle_number, data):
 

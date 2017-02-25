@@ -6,7 +6,7 @@ import random
 class ConfettiEffect(Effect):
     def __init__(self, indexes, leds_percent_per_cycle):
         Effect.__init__(self, indexes)
-        self._leds_per_cycle = int(leds_percent_per_cycle * len(self.indexes))
+        self._leds_per_cycle = max(int(leds_percent_per_cycle * len(self.indexes)), 1)
         self.hue = 0
     
     def apply(self, time_precent, parent_array):
